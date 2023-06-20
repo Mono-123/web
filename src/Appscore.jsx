@@ -14,7 +14,7 @@ export default () => {
     const [input, setInput] = useState('')
     const [input2, setInput2] = useState('')
     const [array, setArray] = useState([])
-    const [a, seta] = useState(false)
+    const [a, seta] = useState()
 
     // function getById(id) {
     //     let Array = ScoreJson;
@@ -56,9 +56,9 @@ export default () => {
             <h4>按id查询</h4>
             请输入需要查找的id: <input type="number" value={a} onChange={(e) => seta(e.target.value)} />
             <button onClick={(a) => {
-                let getbyid = ScoreJson.find(score => score.id == a);
+                let getbyid = ScoreJson.find(score => score.id == 1);
                 const list2 = <Score key={a} id={a} studentId={getbyid.studentId} chinese={getbyid.chinese} math={getbyid.math} english={getbyid.english} />
-                setArray(list2);
+                setArray([list2]);
             }} >查询</button>
 
 
