@@ -11,9 +11,11 @@ export default () => {
     
     const [visible, setVisible] = useState(false)
     const [visible2, setVisible2] = useState(false)
+    const [visible3, setVisible3] = useState(false)
     const [input, setInput] = useState('')
     const [input2, setInput2] = useState('')
-    const [array, setArray] = useState([])
+    const [input3, setInput3] = useState('')
+    const [array, setArray] = useState()
     const [a, seta] = useState()
 
     // function getById(id) {
@@ -47,7 +49,12 @@ export default () => {
 
             <div>
                 <p>请输入：<input value={input2} onChange={(e) => setInput2(e.target.value)}></input></p>
-                <p onMouseOver= {(e)=>setVisible2(e.target)}>鼠标滑过将显示你输入的是：{ visible2 &&input2 }</p>
+                <p onMouseOver={(e)=>setVisible2(e.target)} onMouseOut={(e)=>setVisible2(false)} >鼠标放在此处将显示你输入的是：{ visible2 &&input2 }</p>
+            </div>
+
+            <div>
+                <p>请输入：<input value={input3} onChange={(e) => setInput3(e.target.value)}></input></p>
+                <p onMouseOver={(e) => setVisible3(e.target)}>鼠标滑过将显示你输入的是：{visible3 && input2}</p>
             </div>
 
             {/* <input type='checkbox' onChange={(e) => setVisible(e.target.checked)} checked={visible}></input>查询学生成绩 */}
