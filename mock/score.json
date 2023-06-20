@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "studentId": 1,
+        "chinese": 84,
+        "math": 85,
+        "english": 78
+    },
+    {
+        "id": 2,
+        "studentId": 2,
+        "chinese": 84,
+        "math": 47,
+        "english": 73
+    },
+    {
+        "id": 3,
+        "studentId": 3,
+        "chinese": 82,
+        "math": 68,
+        "english": 83
+    },
+    {
+        "id": 5,
+        "studentId": 5,
+        "chinese": 82,
+        "math": 68,
+        "english": 96
+    },
+    {
+        "id": 18,
+        "studentId": 7,
+        "chinese": 77,
+        "math": 85,
+        "english": 73
+    },
+    {
+        "id": 19,
+        "studentId": 9,
+        "chinese": 89,
+        "math": 95,
+        "english": 88
+    },
+    {
+        "id": 20,
+        "studentId": 10,
+        "chinese": 89,
+        "math": 98,
+        "english": 97
+    },
+    {
+        "id": 21,
+        "studentId": 10,
+        "chinese": 89,
+        "math": 98,
+        "english": 97
+    },
+    {
+        "id": 22,
+        "studentId": 11,
+        "chinese": 87,
+        "math": 88,
+        "english": 97
+    },
+    {
+        "id": 23,
+        "studentId": 11,
+        "chinese": 87,
+        "math": 88,
+        "english": 97
+    }
+]
