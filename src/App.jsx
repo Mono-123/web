@@ -26,6 +26,7 @@ export default () => {
     //         }
     //     }
     // }
+    //  const list3 = getById(1);
 
     // a.addEventListener("click",
     //     function getById(id) {
@@ -83,6 +84,7 @@ export default () => {
                     {visible && list}
                     {array}
                     {list2}
+                    {/* {[list3]} */}
                     {a}
                 </tbody>
             </table>
