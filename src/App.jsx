@@ -19,7 +19,7 @@ export default () => {
 
     const [a, setA] = useState()
     const [array, setArray] = useState([])
-    const [array2, setArray2] = useState()
+    const [array2, setArray2] = useState([])
     
     const [limit, setLimit] = useState(0)
     const [offset, setOffset] = useState(5)
@@ -47,12 +47,14 @@ export default () => {
             <button onClick={(e) => {
                 setVisible(e.target);
                 setVisible3(false);
+                setVisible5(false);
             }} >查询学生成绩</button>
 
             <h4>按id查询</h4>
             请输入需要查找的id: <input type="number" onChange={(e) => setA(e.target.value)} />
             <button onClick={(e) => {
                 setVisible(false);
+                setVisible5(false);
                 setVisible3(e.target);
                 let Array = StudentsJson;
                 for (let i = 0; i < Array.length - 1; i++) {
@@ -71,7 +73,7 @@ export default () => {
             <button onClick={(e) => {
                 setVisible(false);
                 setVisible5(e.target);
-                for (let i = limit; i < offset - 1; i++) {
+                for (let i = limit; i < offset; i++) {
                         setArray2(list[i]);     
                 }
             }} >获取</button>
