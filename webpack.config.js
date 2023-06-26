@@ -14,8 +14,9 @@ module.exports = {
             directory: path.resolve(__dirname, 'dist'),
         },
         port: 3000,
+        historyApiFallback: true,
     },
-
+    devtool: "eval-source-map",
     module: {   
         rules: [
             {
