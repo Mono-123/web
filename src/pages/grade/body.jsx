@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import GradeJson from '../mock/grade.json'
-import Grade from './components/Grade'
+import GradeJson from '../../../mock/grade.json'
+import Grade from '../../components/Grade'
 import { Link, Outlet } from 'react-router-dom'
 
 export default () => {

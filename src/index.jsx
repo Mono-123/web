@@ -7,15 +7,15 @@ import User from './pages/user'
 import UserDetail from './pages/user/detail'
 import UserTest from './pages/user/test'
 
-import Students from './appstudents'
+import Students from './pages/students/body'
 import StudentsId from './pages/students/id'
 import StudentsPagination from './pages/students/pagination'
 
-import Score from './Appscore'
+import Score from './pages/score/body'
 import ScoreId from './pages/score/id'
 import ScorePagination from './pages/score/pagination'
 
-import Grade from './AppGrade'
+import Grade from './pages/grade/body'
 import GradeId from './pages/grade/id'
 import GradePagination from './pages/grade/pagination'
 

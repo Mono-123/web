@@ -9,9 +9,14 @@ export default () => {
     const params = useParams()
     const [searchParams, setSearchParams] = useSearchParams();
     const query = Object.fromEntries(searchParams)
+    let a = false;
 
     if (!params.id) return null;
     const score = ScoreJson.find(u => u.id.toString() === params.id);
+
+    if (!score) {
+        a = true;
+    }
 
     return (
         <div>
@@ -33,13 +38,13 @@ export default () => {
                 </select>
             </p>
             <p>
-                {(!query.tab || query.tab === '全科成绩') && <ScoreId key={score.id} id={score.id} studentId={score.studentId} chinese={score.chinese} math={score.math} english={score.english} />}
-                {query.tab === '语文成绩' && ("语文成绩："+score.chinese)}
-                {query.tab === '数学成绩' && ("数学成绩："+score.math)}
-                {query.tab === '英语成绩' && ("英语成绩："+score.english)}
+                {(!query.tab || query.tab === '全科成绩') && score && <ScoreId key={score.id} id={score.id} studentId={score.studentId} chinese={score.chinese} math={score.math} english={score.english} />}
+                {query.tab === '语文成绩'&& score && ("语文成绩：" + score.chinese)}
+                {query.tab === '数学成绩' && score&& ("数学成绩：" + score.math)}
+                {query.tab === '英语成绩'&& score && ("英语成绩：" + score.english)}
 
             </p>
-
+            {a && "未找到id为" + params.id + "的分数信息"}
         </div>
     )
 }

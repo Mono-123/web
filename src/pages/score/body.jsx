@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import ScoreJson from '../mock/Score.json'
-import Score from './components/score'
+import ScoreJson from '../../../mock/Score.json'
+import Score from '../../components/score'
 import { Link, Outlet } from 'react-router-dom'
 
 export default () => {
@@ -58,7 +58,7 @@ export default () => {
                         break;
                     }
                 } if (i == (list.length - 1)) {
-                    alert("未找到学号为" + id+ "的学生成绩");
+                    alert("未找到学号为" + id + "的学生成绩");
                 }
             }} />
 
@@ -73,7 +73,9 @@ export default () => {
             }} >查询</button> */}
 
             <h4>分页查询</h4>
-            limit：<input type="number" onChange={(e) => setLimit(parseInt(e.target.value))} />
+            limit：<input type="number" onChange={(e) => {
+                setLimit(parseInt(e.target.value))
+            }} />
             offset：<input type="number" onChange={(e) => setOffset(parseInt(e.target.value))} />
 
 

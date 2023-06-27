@@ -25,20 +25,20 @@ export default () => {
 
     let list2 = []
     
-    if (i == list.length - 1) {
-        visible=false;
-        visible2=true;
-    } else {
-        visible2=false;
-        visible=true;
-        const students = StudentsJson.find(u => u.id.toString() === params.id);
-        list2 = <Students key={students.id} id={students.id} name={students.name} gender={students.gender} grade={students.grade} score={students.score} />
-    }
-
+    // if (i == list.length - 1) {
+    //     visible=false;
+    //     visible2=true;
+    // } else {
+    //     visible2=false;
+    //     visible=true;
+        
+    // }
+    const students = StudentsJson.find(u => u.id.toString() === params.id);
+    list2 = <Students key={students.id} id={students.id} name={students.name} gender={students.gender} grade={students.grade} score={students.score} />
     return (
         <div>
             <h4>学号为{params.id}的学生的个人信息</h4>
-            {visible && (
+            {/* {visible && ( */}
                 <span
                 ><table>
                         <thead>
@@ -54,9 +54,9 @@ export default () => {
                             {list2}
                         </tbody>
                     </table>
-                </span>)
-            }
-            {visible2&&"未找到学号为" +params.id+ "的学生成绩"}
+                </span>
+            {/* } */}
+            {/* {visible2&&"未找到学号为" +params.id+ "的学生成绩"} */}
         </div>
     )
 }
