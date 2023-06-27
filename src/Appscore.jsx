@@ -8,6 +8,11 @@ export default () => {
         <Score key={score.id} id={score.id} studentId={score.studentId} chinese={score.chinese} math={score.math} english={score.english} />
     ))
 
+    const [id, setId] = useState()
+
+    const [limit, setLimit] = useState(10)
+    const [offset, setOffset] = useState(0)
+
     // let getbyid = ScoreJson.find(score => score.id == 1);
     // const list2 = <Score key={10000} id={1} studentId={getbyid.studentId} chinese={getbyid.chinese} math={getbyid.math} english={getbyid.english} />
 
@@ -20,9 +25,8 @@ export default () => {
     //     }
     // }
     // const list3 = getById(1);
-    const [a, setA] = useState()
 
-    // a.addEventListener("click",
+    // id.addEventListener("click",
     //     function getById(id) {
     //         let Array = ScoreJson;
     //         for (let i = 0; i < Array.length - 1; i++) {
@@ -35,27 +39,35 @@ export default () => {
 
     return (
         <div>
+            <p>
+                <Link to={`/`}>返回主页</Link>
+            </p>
+
             <h1>score</h1>
 
             {/* <input type='checkbox' onChange={(e) => setVisible(e.target.checked)} checked={visible}></input>查询学生成绩 */}
             {/* <button onClick={(e) => setVisible(e.target)} >显示所有学生成绩</button> */}
 
             <h4>按id查询</h4>
-            请输入需要查找的id: <input type="number" onChange={(e) => setA(e.target.value)} />
-            <Link to={`id/${a}`}>查询</Link>
+            请输入需要查找的id: <input type="number" onChange={(e) => setId(e.target.value)} />
+            {(<span>
+                <Link to={`id/${id}`}>查询</Link>
+            </span>)}
 
             {/* <button onClick={(e) => {
                 setVisible(false);
-                let getbyid = ScoreJson.find(score => score.id == a);
-                const list2 = <Score key={a} id={a} studentId={getbyid.studentId} chinese={getbyid.chinese} math={getbyid.math} english={getbyid.english} />
+                let getbyid = ScoreJson.find(score => score.id == id);
+                const list2 = <Score key={id} id={id} studentId={getbyid.studentId} chinese={getbyid.chinese} math={getbyid.math} english={getbyid.english} />
                 setArray(list2);
             }} >查询</button> */}
 
             <h4>分页查询</h4>
             limit：<input type="number" onChange={(e) => setLimit(parseInt(e.target.value))} />
             offset：<input type="number" onChange={(e) => setOffset(parseInt(e.target.value))} />
-        
+
+
             <Link to={`pagination/${limit}/${offset}`}>查询</Link>
+
 
 
             {/* <table>
