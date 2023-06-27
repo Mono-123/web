@@ -7,10 +7,13 @@ import User from './pages/user'
 import UserDetail from './pages/user/detail'
 import UserTest from './pages/user/test'
 
-import Score from './Appscore'
 import Students from './appstudents'
 import StudentsId from './pages/students/id'
+import StudentsPagination from './pages/students/pagination'
+
+import Score from './Appscore'
 import ScoreId from './pages/score/id'
+import ScorePagination from './pages/score/pagination'
 
 // 清除现有的 HTML 内容
 document.body.innerHTML = '<div id="app"></div>';
@@ -41,16 +44,6 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path: "score",
-        element: <Score/>,
-        children: [
-            {
-                path: "id/:id?",
-                element: <ScoreId/>,
-            },
-        ]
-    },
-    {
         path: "students",
         element: <Students/>,
         children: [
@@ -59,15 +52,24 @@ const router = createBrowserRouter([
                 element: <StudentsId/>,
             },
             {
-                path: "test/:a?/:b?",
-                element: <UserTest />,
+                path: "pagination/:limit?/:offset?",
+                element: <StudentsPagination/>,
             },
         ]
     },
     {
-        path: "id/:id?",
-        element: <ScoreId/>,
-        
+        path: "score",
+        element: <Score/>,
+        children: [
+            {
+                path: "id/:id?",
+                element: <ScoreId/>,
+            },
+            {
+                path: "pagination/:limit?/:offset?",
+                element: <ScorePagination/>,
+            },
+        ]
     },
 ]);
 

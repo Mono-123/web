@@ -1,32 +1,26 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import StudentsJson from '../../../mock/students.json'
 import Students from '../../components/Students'
+import StudentsJson from '../../../mock/students.json'
 
 export default () => {
     const params = useParams()
 
+    let limit = parseInt(params.limit)
+    let offset = parseInt(params.offset)
+
     let list = StudentsJson.map(students => (
         <Students key={students.id} id={students.id} name={students.name} gender={students.gender} grade={students.grade} score={students.score} />
     ))
-    let i = 0;
-    for (; i < list.length - 1; i++) {
-        if (list[i].id == params.id) {
-            break;
-        }
-    }
-    let list2=[] 
 
-    if (!params.id || i == list.length - 1) {
-        list2 = "not found"
+    let array = [];
+    for (let i = offset; i < (offset + limit); i++) {
+        array.push(list[i]);
     }
-    const students = StudentsJson.find(u => u.id.toString() === params.id);
-    list2 = <Students key={students.id} id={students.id} name={students.name} gender={students.gender} grade={students.grade} score={students.score} />
 
     return (
         <div>
-            <h4>学号为{params.id}的学生的个人信息</h4>
-
+            
             <table>
                 <thead>
                     <tr>
@@ -38,7 +32,7 @@ export default () => {
                     </tr>
                 </thead>
                 <tbody id="table">
-                    {params.id && list2}
+                    {array}
                 </tbody>
             </table>
 

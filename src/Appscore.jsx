@@ -20,15 +20,6 @@ export default () => {
     //     }
     // }
     // const list3 = getById(1);
-
-    const [visible, setVisible] = useState(false)
-    const [visible2, setVisible2] = useState(false)
-    const [visible3, setVisible3] = useState(false)
-    const [visible4, setVisible4] = useState(false)
-    const [input, setInput] = useState('')
-    const [input2, setInput2] = useState('')
-    const [input3, setInput3] = useState('')
-    const [array, setArray] = useState([])
     const [a, setA] = useState()
 
     // a.addEventListener("click",
@@ -46,36 +37,28 @@ export default () => {
         <div>
             <h1>score</h1>
 
-            <div>
-                <p>请输入：<input value={input} onChange={(e) => setInput(e.target.value)}></input></p>
-                <p>你输入的是：{input}</p>
-            </div>
-
-            <div>
-                <p>请输入：<input value={input2} onChange={(e) => setInput2(e.target.value)}></input></p>
-                <p onMouseOver={(e)=>setVisible2(e.target)} onMouseOut={(e)=>setVisible2(false)} >鼠标放在此处将显示你输入的是：{ visible2 &&input2 }</p>
-            </div>
-
-            <div>
-                <p>请输入：<input value={input3} onChange={(e) => setInput3(e.target.value)}></input></p>
-                <p onMouseOver={(e) => setVisible3(e.target)}>鼠标滑过将显示你输入的是：{visible3 && input2}</p>
-            </div>
-
             {/* <input type='checkbox' onChange={(e) => setVisible(e.target.checked)} checked={visible}></input>查询学生成绩 */}
-            <button onClick={(e) => setVisible(e.target)} >查询学生成绩</button>
+            {/* <button onClick={(e) => setVisible(e.target)} >显示所有学生成绩</button> */}
 
             <h4>按id查询</h4>
             请输入需要查找的id: <input type="number" onChange={(e) => setA(e.target.value)} />
-            <button onClick={(e) => {
+            <Link to={`id/${a}`}>查询</Link>
+
+            {/* <button onClick={(e) => {
                 setVisible(false);
-                setVisible3(e.target);
                 let getbyid = ScoreJson.find(score => score.id == a);
                 const list2 = <Score key={a} id={a} studentId={getbyid.studentId} chinese={getbyid.chinese} math={getbyid.math} english={getbyid.english} />
                 setArray(list2);
-            }} >查询</button>
+            }} >查询</button> */}
+
+            <h4>分页查询</h4>
+            limit：<input type="number" onChange={(e) => setLimit(parseInt(e.target.value))} />
+            offset：<input type="number" onChange={(e) => setOffset(parseInt(e.target.value))} />
+        
+            <Link to={`pagination/${limit}/${offset}`}>查询</Link>
 
 
-            <table>
+            {/* <table>
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -88,11 +71,9 @@ export default () => {
                 <tbody id="table">
                     {visible && list}
                     {array}
-                    {/* {list2} */}
-                    {/* {[list3]} */}
-                    {/* {a} */}
                 </tbody>
-            </table>
+            </table> */}
+
             <Outlet />
         </div>
     )

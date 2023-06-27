@@ -9,8 +9,11 @@ export default () => {
 
     const [visible, setVisible] = useState(false)
     const [visible2, setVisible2] = useState(false)
+    const [visible4, setVisible4] = useState(false)
+
     const [input, setInput] = useState('')
     const [input2, setInput2] = useState('')
+    const [input3, setInput3] = useState('')
 
     return (
         <div>
@@ -23,11 +26,16 @@ export default () => {
 
             <div>
                 <p>请输入：<input value={input2} onChange={(e) => setInput2(e.target.value)}></input></p>
-                <p onMouseOver={(e) => setVisible2(e.target)}>鼠标滑过将显示你输入的是：{visible2 && input2}</p>
+                <p onMouseOver={() => setVisible2(true)}>鼠标滑过将显示你输入的是：{visible2 && input2}</p>
+            </div>
+
+            <div>
+                <p>请输入：<input value={input3} onChange={(e) => setInput3(e.target.value)}></input></p>
+                <p onMouseOver={() => setVisible4(true)} onMouseOut={() => setVisible4(false)} >鼠标放于在此处将显示你的输入是：{visible4 && input3}</p>
             </div>
 
             {/* <input type='checkbox' onChange={(e) => setVisible(e.target.checked)} checked={visible}></input>查询学生成绩 */}
-            <button onClick={(e) => setVisible(e.target)} >查询学生成绩</button>
+            <button onClick={() => setVisible(true)} >查询学生成绩</button>
 
             <table>
                 <thead>
