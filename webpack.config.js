@@ -1,7 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-
 module.exports = {
     entry: './src/index.jsx',
     output: {
@@ -14,8 +13,14 @@ module.exports = {
         static: {
             directory: path.resolve(__dirname, 'dist'),
         },
+        proxy: {
+            '/api': {
+              target: 'http://localhost:8080',
+              pathRewrite: { '^/api': '' },
+            },
+        },
         port: 3000,
-        historyApiFallback: true,
+        historyApiFallback: true,   
     },
     devtool: "eval-source-map",
     module: {   

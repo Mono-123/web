@@ -3,9 +3,8 @@ import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from './App'
 import ErrorPage from './pages/error'
-import User from './pages/user'
-import UserDetail from './pages/user/detail'
-import UserTest from './pages/user/test'
+import Student from './pages/student'
+import StudentDetail from './pages/student/detail'
 
 // 清除现有的 HTML 内容
 document.body.innerHTML = '<div id="app"></div>';
@@ -22,16 +21,12 @@ const router = createBrowserRouter([
         element: <div>world</div>,
     },
     {
-        path: "user",
-        element: <User />,
+        path: "student",
+        element: <Student />,
         children: [
             {
                 path: "detail/:id?",
-                element: <UserDetail />,
-            },
-            {
-                path: "test/:a?/:b?",
-                element: <UserTest />,
+                element: <StudentDetail />,
             },
         ]
     },
