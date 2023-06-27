@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "name": "张三",
+        "gender": 1,
+        "classId": 2
+    },
+    {
+        "id": 2,
+        "name": "李四",
+        "gender": 0,
+        "classId": 2
+    },
+    {
+        "id": 3,
+        "name": "王五",
+        "gender": 1,
+        "classId": 1
+    },
+    {
+        "id": 4,
+        "name": "孔六",
+        "gender": 1,
+        "classId": 2
+    },
+    {
+        "id": 6,
+        "name": "text",
+        "gender": 0,
+        "classId": 1
+    },
+    {
+        "id": 7,
+        "name": "text",
+        "gender": 1,
+        "classId": 3
+    }
+]

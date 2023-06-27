@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "name": 1,
+        "managerId": 1,
+        "gradeId": 1
+    },
+    {
+        "id": 2,
+        "name": 3,
+        "managerId": 3,
+        "gradeId": 1
+    },
+    {
+        "id": 3,
+        "name": 3,
+        "managerId": 5,
+        "gradeId": 1
+    },
+    {
+        "id": 4,
+        "name": 1,
+        "managerId": 2,
+        "gradeId": 2
+    },
+    {
+        "id": 5,
+        "name": 3,
+        "managerId": 4,
+        "gradeId": 4
+    },
+    {
+        "id": 6,
+        "name": 3,
+        "managerId": 7,
+        "gradeId": 4
+    },
+    {
+        "id": 8,
+        "name": 2,
+        "managerId": 6,
+        "gradeId": 3
+    }
+]

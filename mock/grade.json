@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "grade": 2,
+        "managerId": 1,
+        "isGraduated": 0
+    },
+    {
+        "id": 2,
+        "grade": 1,
+        "managerId": 2,
+        "isGraduated": 0
+    },
+    {
+        "id": 3,
+        "grade": 2,
+        "managerId": 3,
+        "isGraduated": 0
+    },
+    {
+        "id": 8,
+        "grade": 2,
+        "managerId": 2,
+        "isGraduated": 0
+    },
+    {
+        "id": 9,
+        "grade": 1,
+        "managerId": 4,
+        "isGraduated": 0
+    },
+    {
+        "id": 10,
+        "grade": 2,
+        "managerId": 7,
+        "isGraduated": 0
+    },
+    {
+        "id": 15,
+        "grade": 4,
+        "managerId": 5,
+        "isGraduated": 0
+    }
+]
