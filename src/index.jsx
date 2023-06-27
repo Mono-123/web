@@ -8,6 +8,9 @@ import UserDetail from './pages/user/detail'
 import UserTest from './pages/user/test'
 
 import Score from './Appscore'
+import Students from './appstudents'
+import StudentsId from './pages/students/id'
+import ScoreId from './pages/score/id'
 
 // 清除现有的 HTML 内容
 document.body.innerHTML = '<div id="app"></div>';
@@ -40,6 +43,31 @@ const router = createBrowserRouter([
     {
         path: "score",
         element: <Score/>,
+        children: [
+            {
+                path: "id/:id?",
+                element: <ScoreId/>,
+            },
+        ]
+    },
+    {
+        path: "students",
+        element: <Students/>,
+        children: [
+            {
+                path: "id/:id?",
+                element: <StudentsId/>,
+            },
+            {
+                path: "test/:a?/:b?",
+                element: <UserTest />,
+            },
+        ]
+    },
+    {
+        path: "id/:id?",
+        element: <ScoreId/>,
+        
     },
 ]);
 

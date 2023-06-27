@@ -31,7 +31,7 @@ export default () => {
                     <option>phone</option>
                 </select>
             </p>
-            {!query.tab && <User username={user.username} email={user.email} phone={user.phone} />}
+             <User username={user.username} email={user.email} phone={user.phone} />
             {query.tab === 'username' && user.username}
             {query.tab === 'email' && user.email}
             {query.tab === 'phone' && user.phone}

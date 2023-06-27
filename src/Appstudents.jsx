@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import StudentsJson from '../mock/students.json'
 import Students from './components/Students'
+import { Link, Outlet } from 'react-router-dom'
 
 export default () => {
     let list = StudentsJson.map(students => (
@@ -21,8 +22,8 @@ export default () => {
     const [array, setArray] = useState([])
     const [array2, setArray2] = useState([])
     
-    const [limit, setLimit] = useState(0)
-    const [offset, setOffset] = useState(5)
+    const [limit, setLimit] = useState(5)
+    const [offset, setOffset] = useState(0)
 
     return (
         <div>
@@ -68,15 +69,18 @@ export default () => {
             }} >查询</button>
 
             <h4>分页查询</h4>
-            limit：<input type="number" onChange={(e) => setLimit(e.target.value)} />
-            offset：<input type="number" onChange={(e) => setOffset(e.target.value)} />
-            <button onClick={(e) => {
+            limit：<input type="number" onChange={(e) => setLimit(parseInt(e.target.value))} />
+            offset：<input type="number" onChange={(e) => setOffset(parseInt(e.target.value))} />
+            <button onClick={() => {
                 setVisible(false);
-                setVisible5(e.target);
-                for (let i = limit; i < offset; i++) {
-                        setArray2(list[i]);     
-                }
+                setVisible5(true);
+                let b=[];
+                for (let i = 0; i < 5; i++) {
+                        b.push=list[i];    
+                        console.log(i,b,list[i]);  
+                }setArray2(b);
             }} >获取</button>
+            
 
             <table>
                 <thead>
@@ -95,6 +99,7 @@ export default () => {
                 </tbody>
             </table>
 
+            <Outlet />
         </div>
     )
 }

@@ -1,24 +1,25 @@
 import React, { useState } from 'react'
 import ScoreJson from '../mock/Score.json'
 import Score from './components/score'
+import { Link, Outlet } from 'react-router-dom'
 
 export default () => {
     const list = ScoreJson.map(score => (
         <Score key={score.id} id={score.id} studentId={score.studentId} chinese={score.chinese} math={score.math} english={score.english} />
     ))
 
-    let getbyid = ScoreJson.find(score => score.id == 1);
-    const list2 = <Score key={1} id={1} studentId={getbyid.studentId} chinese={getbyid.chinese} math={getbyid.math} english={getbyid.english} />
+    // let getbyid = ScoreJson.find(score => score.id == 1);
+    // const list2 = <Score key={10000} id={1} studentId={getbyid.studentId} chinese={getbyid.chinese} math={getbyid.math} english={getbyid.english} />
 
-    function getById(id) {
-        let Array = ScoreJson;
-        for (let i = 0; i < Array.length - 1; i++) {
-            if (Array[i].id == id) {
-                return (Array[i]);
-            }
-        }
-    }
-    const list3 = getById(1);
+    // function getById(id) {
+    //     let Array = ScoreJson;
+    //     for (let i = 0; i < Array.length - 1; i++) {
+    //         if (Array[i].id == id) {
+    //             return (Array[i]);
+    //         }
+    //     }
+    // }
+    // const list3 = getById(1);
 
     const [visible, setVisible] = useState(false)
     const [visible2, setVisible2] = useState(false)
@@ -87,12 +88,12 @@ export default () => {
                 <tbody id="table">
                     {visible && list}
                     {array}
-                    {list2}
+                    {/* {list2} */}
                     {/* {[list3]} */}
-                    {a}
+                    {/* {a} */}
                 </tbody>
             </table>
-
+            <Outlet />
         </div>
     )
 }
