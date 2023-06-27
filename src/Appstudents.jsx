@@ -9,16 +9,15 @@ export default () => {
         <Students key={students.id} id={students.id} name={students.name} gender={students.gender} grade={students.grade} score={students.score} />
     ))
 
-    const [visible, setVisible] = useState(false)
-    const [visible3, setVisible3] = useState(false)
-    const [visible5, setVisible5] = useState(false)
-    const [visible6, setVisible6] = useState(false)
-
+    // const [visible, setVisible] = useState(false)
+    // const [visible3, setVisible3] = useState(false)
+    // const [visible5, setVisible5] = useState(false)
+    // const [visible6, setVisible6] = useState(false)
 
     const [id, setId] = useState()
     const [error, setError] = useState(false)
-    const [array, setArray] = useState([])
-    const [array2, setArray2] = useState([])
+    // const [array, setArray] = useState([])
+    // const [array2, setArray2] = useState([])
 
     const [limit, setLimit] = useState(10)
     const [offset, setOffset] = useState(0)
@@ -51,7 +50,7 @@ export default () => {
                 }
             }} />
 
-            {!error && (<span>
+            {(!error) && (<span>
                 <Link to={`id/${id}`}>查询</Link>
             </span>)}
 
@@ -98,7 +97,7 @@ export default () => {
                     {visible5 && array2}
                 </tbody>
             </table> */}<br></br>
-            {error && "未找到学号为" + {id} + "的学生成绩"}
+            {error && ("未找到学号为" + id + "的学生成绩")}
 
             <Outlet />
         </div>

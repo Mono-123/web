@@ -1,36 +1,44 @@
 import React, { useState } from 'react'
 import GradeJson from '../mock/grade.json'
 import Grade from './components/Grade'
+import { Link, Outlet } from 'react-router-dom'
 
 export default () => {
+    const [id, setId] = useState()
+
+    const [limit, setLimit] = useState(10)
+    const [offset, setOffset] = useState(0)
+
     const list = GradeJson.map(grade => (
         <Grade key={grade.id} id={grade.id} grade={grade.grade} managerId={grade.managerId} isGraduated={grade.isGraduated} />
     ))
 
-    const [visible, setVisible] = useState(false)
-    const [visible2, setVisible2] = useState(false)
-    const [input, setInput] = useState('')
-    const [input2, setInput2] = useState('')
+    // const [visible, setVisible] = useState(false)
 
     return (
         <div>
+            <p>
+                <Link to={`/`}>返回主页</Link>
+            </p>
+
             <h1>Grade</h1>
 
-            <div>
-                <p>请输入：<input value={input} onChange={(e) => setInput(e.target.value)}></input></p>
-                <p>你输入的是：{input}</p>
-            </div>
-
-            <div>
-                <p>请输入：<input value={input2} onChange={(e) => setInput2(e.target.value)}></input></p>
-                <p onMouseOver={(e) => setVisible2(e.target)}>鼠标滑过将显示你输入的是：{visible2 && input2}</p>
-            </div>
-
+            <h4>按id查询</h4>
+            请输入需要查找的id: <input type="number" onChange={(e) => setId(parseInt(e.target.value))} />
+            <Link to={`id/${id}`}>查询</Link>
+            
             {/* <input type='checkbox' onChange={(e) => setVisible(e.target.checked)} checked={visible}></input>查询学生成绩 */}
-            <button onClick={(e) => setVisible(e.target)} >查询学生成绩</button>
+            {/* <button onClick={(e) => setVisible(e.target)} >查询学生成绩</button> */}
 
 
-            <table>
+            <h4>分页查询</h4>
+            limit：<input type="number" onChange={(e) => setLimit(parseInt(e.target.value))} />
+            offset：<input type="number" onChange={(e) => setOffset(parseInt(e.target.value))} />
+
+            <Link to={`pagination/${limit}/${offset}`}>查询</Link>
+
+
+            {/* <table>
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -42,8 +50,8 @@ export default () => {
                 <tbody id="table">
                     {visible && list}
                 </tbody>
-            </table>
-
+            </table> */}
+            <Outlet />
         </div>
     )
 }

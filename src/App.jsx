@@ -14,6 +14,9 @@ export default () => {
                 <Link to={`students`}>查看学生信息</Link>
             </p>
 
+            <p>
+                <Link to={`grade`}>查看年级信息</Link>
+            </p>
             <Outlet />
 
         </div>

@@ -49,10 +49,21 @@ export default () => {
             {/* <button onClick={(e) => setVisible(e.target)} >显示所有学生成绩</button> */}
 
             <h4>按id查询</h4>
-            请输入需要查找的id: <input type="number" onChange={(e) => setId(e.target.value)} />
-            {(<span>
-                <Link to={`id/${id}`}>查询</Link>
-            </span>)}
+            请输入需要查找的id: <input type="number" onChange={(e) => {
+                setId(parseInt(e.target.value))
+                console.log(id);
+                let i;
+                for (i = 0; i < list.length - 1; i++) {
+                    if (list[i].id == id) {
+                        break;
+                    }
+                } if (i == (list.length - 1)) {
+                    alert("未找到学号为" + id+ "的学生成绩");
+                }
+            }} />
+
+
+            <Link to={`id/${id}`}>查询</Link>
 
             {/* <button onClick={(e) => {
                 setVisible(false);

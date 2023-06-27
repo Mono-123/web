@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import StudentsJson from '../../../mock/students.json'
-import Students from '../../components/Students'
+import GradeJson from '../../../mock/grade.json'
+import Grade from '../../components/Grade'
 
 export default () => {
     const params = useParams()
@@ -12,8 +12,8 @@ export default () => {
     let visible=false;
     let visible2=false;
 
-    let list = StudentsJson.map(students => (
-        <Students key={students.id} id={students.id} name={students.name} gender={students.gender} grade={students.grade} score={students.score} />
+    let list = GradeJson.map(grade => (
+        <Grade key={grade.id} id={grade.id} grade={grade.grade} managerId={grade.managerId} isGraduated={grade.isGraduated} />
     ))
 
     let i;
@@ -31,8 +31,8 @@ export default () => {
     } else {
         visible2=false;
         visible=true;
-        const students = StudentsJson.find(u => u.id.toString() === params.id);
-        list2 = <Students key={students.id} id={students.id} name={students.name} gender={students.gender} grade={students.grade} score={students.score} />
+        const grade = GradeJson.find(u => u.id.toString() === params.id);
+        list2 = <Grade key={grade.id} id={grade.id} grade={grade.grade} managerId={grade.managerId} isGraduated={grade.isGraduated} />
     }
 
     return (
@@ -56,7 +56,7 @@ export default () => {
                     </table>
                 </span>)
             }
-            {visible2&&"未找到学号为" +params.id+ "的学生成绩"}
+            {visible2&&"未找到id为" +params.id+ "的年级信息"}
         </div>
     )
 }

@@ -15,6 +15,10 @@ import Score from './Appscore'
 import ScoreId from './pages/score/id'
 import ScorePagination from './pages/score/pagination'
 
+import Grade from './AppGrade'
+import GradeId from './pages/grade/id'
+import GradePagination from './pages/grade/pagination'
+
 // 清除现有的 HTML 内容
 document.body.innerHTML = '<div id="app"></div>';
 
@@ -68,6 +72,20 @@ const router = createBrowserRouter([
             {
                 path: "pagination/:limit?/:offset?",
                 element: <ScorePagination/>,
+            },
+        ]
+    },
+    {
+        path: "grade",
+        element: <Grade/>,
+        children: [
+            {
+                path: "id/:id?",
+                element: <GradeId/>,
+            },
+            {
+                path: "pagination/:limit?/:offset?",
+                element: <GradePagination/>,
             },
         ]
     },
