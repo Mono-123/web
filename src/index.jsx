@@ -7,7 +7,7 @@ import User from './pages/user'
 import UserDetail from './pages/user/detail'
 import UserTest from './pages/user/test'
 
-import Score from './pages/student/ppstudents'
+import Score from './Appscore'
 
 // 清除现有的 HTML 内容
 document.body.innerHTML = '<div id="app"></div>';
@@ -37,10 +37,10 @@ const router = createBrowserRouter([
             },
         ]
     },
-    // {
-    //     path: "score",
-    //     element: <Score/>,
-    // },
+    {
+        path: "score",
+        element: <Score/>,
+    },
 ]);
 
 // 渲染你的 React 组件
