@@ -6,16 +6,17 @@ export default () => {
     const params = useParams()
     const [scoreList, setScoreList] = useState()
     const [errorMessage, setErrorMessage] = useState('')
-    const url = '/api/score'
-
+    const Id = params.Id
     const studentId = params.studentId
     const chinese = params.chinese
     const math = params.math
     const english = params.english
 
+    const url = '/api/score'+Id
+
     useEffect(() => {
         fetch(url, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },

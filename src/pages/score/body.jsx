@@ -8,11 +8,19 @@ export default () => {
         <Score key={score.id} id={score.id} studentId={score.studentId} chinese={score.chinese} math={score.math} english={score.english} />
     ))
     const params = useParams()
-    const [id, setId] = useState(params.id)
-    const navigate = useNavigate();
+    const [id, setId] = useState()
+    const navigate = useNavigate()
 
     const [limit, setLimit] = useState(10)
     const [offset, setOffset] = useState(0)
+
+    const [studentId, setStudentId] = useState()
+    const [chinese, setChinese] = useState()
+    const [math, setMath] = useState()
+    const [english, setEnglish] = useState()
+
+
+
 
     // let getbyid = ScoreJson.find(score => score.id == 1);
     // const list2 = <Score key={10000} id={1} studentId={getbyid.studentId} chinese={getbyid.chinese} math={getbyid.math} english={getbyid.english} />
@@ -74,7 +82,7 @@ export default () => {
             }} >查询</button> */}
 
             <h4>分页查询</h4>
-            limit：<input type="number" onChange={(e) => setLimit(parseInt(e.target.value)) } />
+            limit：<input type="number" onChange={(e) => setLimit(parseInt(e.target.value))} />
             offset：<input type="number" onChange={(e) => setOffset(parseInt(e.target.value))} />
 
             <button onClick={() => {
@@ -101,30 +109,71 @@ export default () => {
             <form name="scoreform" onsubmit="return false;">
                 <h2>创建</h2>
                 <p>
-                    Id:
-                    <input name="id"/>
-                </p>
-                <p>
-                    学生ID:
-                    <input name="studentId" />
+                    学生学号
+                    <input name="studentId" onChange={(e) => setStudentId(parseInt(e.target.value))} />
                 </p>
                 <p>
                     语文成绩:
-                    <input name="chinese" type="number" />
+                    <input name="chinese" onChange={(e) => setChinese(parseInt(e.target.value))} />
                 </p>
                 <p>
                     数学成绩:
-                    <input name="math" type="number" />
+                    <input name="math" onChange={(e) => setMath(parseInt(e.target.value))} />
                 </p>
                 <p>
                     英语成绩:
-                    <input name="english" type="number" />
+                    <input name="english" onChange={(e) => setEnglish(parseInt(e.target.value))} />
                 </p>
                 <button onClick={() => {
-                navigate(`/score/pagination/${limit}/${offset}`)
-            }} >点击查看</button>
+                    // navigate(`/score/insert/${studentId}/${chinese}/${math}/${english}`)
+                }} >提交</button>
                 <input type="reset" value="重置" />
             </form>
+
+            <form >
+                <h2>更新</h2>
+                <p>
+                    ID:
+                    <input name="Id" onChange={(e) => setId(parseInt(e.target.value))} />
+                </p>
+                
+                <p>
+                    学生学号:
+                    <input name="studentId" onChange={(e) => setStudentId(parseInt(e.target.value))} />
+                </p>
+                <p>
+                    语文成绩:
+                    <input name="chinese" onChange={(e) => setChinese(parseInt(e.target.value))} />
+                </p>
+                <p>
+                    数学成绩:
+                    <input name="math" onChange={(e) => setMath(parseInt(e.target.value))} />
+                </p>
+                <p>
+                    英语成绩:
+                    <input name="english" onChange={(e) => setEnglish(parseInt(e.target.value))} />
+                </p>
+                <button onClick={() => {
+                    navigate(`/score/update/${id}/${studentId}/${chinese}/${math}/${english}`)
+                }} >提交</button>
+                <input type="reset" value="重置" />
+            </form>
+
+            {/* <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>学生学号</th>
+                        <th>语文成绩</th>
+                        <th>数学成绩</th>
+                        <th>英语成绩</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="table">
+                </tbody>
+            </table> */}
+
 
             <Outlet />
         </div>

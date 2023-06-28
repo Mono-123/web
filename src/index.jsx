@@ -18,6 +18,7 @@ import Score from './pages/score/body'
 import ScoreId from './pages/score/id'
 import ScorePagination from './pages/score/pagination'
 import ScoreInsert from './pages/score/insert'
+import ScoreUpdate from './pages/score/update'
 
 import Grade from './pages/grade/body'
 import GradeId from './pages/grade/id'
@@ -78,8 +79,12 @@ const router = createBrowserRouter([
                 element: <ScorePagination/>,
             },
             {
-                path: "insert/:limit?/:offset?",
+                path: "insert/:studentId?/:chinese?/:math?/:english?",
                 element: <ScoreInsert/>,
+            },
+            {
+                path: "update/:id?/:studentId?/:chinese?/:math?/:english?",
+                element: <ScoreUpdate/>,
             },
         ]
     },
