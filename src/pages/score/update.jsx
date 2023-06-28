@@ -6,13 +6,13 @@ export default () => {
     const params = useParams()
     const [scoreList, setScoreList] = useState()
     const [errorMessage, setErrorMessage] = useState('')
-    const Id = params.Id
+    const id = params.id
     const studentId = params.studentId
     const chinese = params.chinese
     const math = params.math
     const english = params.english
 
-    const url = '/api/score'+Id
+    const url = '/api/score/'+ id
 
     useEffect(() => {
         fetch(url, {
@@ -27,6 +27,7 @@ export default () => {
                 "english": english
             })
         }).then(async resp => {
+            console.log(id)
             const json = await resp.json()
             if (resp.status >= 200 && resp.status < 400) {
                 console.log("json from api:", json)

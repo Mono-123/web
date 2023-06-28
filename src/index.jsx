@@ -19,6 +19,7 @@ import ScoreId from './pages/score/id'
 import ScorePagination from './pages/score/pagination'
 import ScoreInsert from './pages/score/insert'
 import ScoreUpdate from './pages/score/update'
+import ScoreDelete from './pages/score/delete'
 
 import Grade from './pages/grade/body'
 import GradeId from './pages/grade/id'
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
             {
                 path: "update/:id?/:studentId?/:chinese?/:math?/:english?",
                 element: <ScoreUpdate/>,
+            },
+            {
+                path: "delete/:id?",
+                element: <ScoreDelete/>,
             },
         ]
     },

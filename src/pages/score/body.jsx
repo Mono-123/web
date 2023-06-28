@@ -19,9 +19,6 @@ export default () => {
     const [math, setMath] = useState()
     const [english, setEnglish] = useState()
 
-
-
-
     // let getbyid = ScoreJson.find(score => score.id == 1);
     // const list2 = <Score key={10000} id={1} studentId={getbyid.studentId} chinese={getbyid.chinese} math={getbyid.math} english={getbyid.english} />
 
@@ -158,6 +155,15 @@ export default () => {
                 }} >提交</button>
                 <input type="reset" value="重置" />
             </form>
+
+            <h4>按id删除</h4>
+            请输入需要删除的学生id:
+            <input value={id} onChange={(e) => setId(e.target.value)}></input>
+            <button onClick={() => {
+                if (!id) return
+                navigate(`/score/delete/${id}`)
+            }} disabled={!id}>删除</button>
+
 
             {/* <table>
                 <thead>
