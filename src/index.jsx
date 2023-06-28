@@ -17,6 +17,7 @@ import StudentsPagination from './pages/students/pagination'
 import Score from './pages/score/body'
 import ScoreId from './pages/score/id'
 import ScorePagination from './pages/score/pagination'
+import ScoreInsert from './pages/score/insert'
 
 import Grade from './pages/grade/body'
 import GradeId from './pages/grade/id'
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
             {
                 path: "pagination/:limit?/:offset?",
                 element: <ScorePagination/>,
+            },
+            {
+                path: "insert/:limit?/:offset?",
+                element: <ScoreInsert/>,
             },
         ]
     },

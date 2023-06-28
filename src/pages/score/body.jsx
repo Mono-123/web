@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import ScoreJson from '../../../mock/Score.json'
 import Score from '../../components/score'
-import { Link, Outlet } from 'react-router-dom'
+import { useParams, Link, Outlet, useNavigate } from 'react-router-dom'
 
 export default () => {
     const list = ScoreJson.map(score => (
         <Score key={score.id} id={score.id} studentId={score.studentId} chinese={score.chinese} math={score.math} english={score.english} />
     ))
-
-    const [id, setId] = useState()
+    const params = useParams()
+    const [id, setId] = useState(params.id)
+    const navigate = useNavigate();
 
     const [limit, setLimit] = useState(10)
     const [offset, setOffset] = useState(0)
@@ -45,11 +46,14 @@ export default () => {
 
             <h1>score</h1>
 
-            {/* <input type='checkbox' onChange={(e) => setVisible(e.target.checked)} checked={visible}></input>查询学生成绩 */}
-            {/* <button onClick={(e) => setVisible(e.target)} >显示所有学生成绩</button> */}
-
             <h4>按id查询</h4>
-            请输入需要查找的id: <input type="number" onChange={(e) => {
+            请输入需要查找的id:
+            <input value={id} onChange={(e) => setId(e.target.value)}></input>
+            <button onClick={() => {
+                if (!id) return
+                navigate(`/score/id/${id}`)
+            }} disabled={!id}>查询</button>
+            {/* <input type="number" onChange={(e) => {
                 setId(parseInt(e.target.value))
                 console.log(id);
                 let i;
@@ -60,11 +64,8 @@ export default () => {
                 } if (i == (list.length - 1)) {
                     alert("未找到学号为" + id + "的学生成绩");
                 }
-            }} />
-
-
-            <Link to={`id/${id}`}>查询</Link>
-
+            }} /> */}
+            {/* <Link to={`id/${id}`}>查询</Link> */}
             {/* <button onClick={(e) => {
                 setVisible(false);
                 let getbyid = ScoreJson.find(score => score.id == id);
@@ -73,15 +74,13 @@ export default () => {
             }} >查询</button> */}
 
             <h4>分页查询</h4>
-            limit：<input type="number" onChange={(e) => {
-                setLimit(parseInt(e.target.value))
-            }} />
+            limit：<input type="number" onChange={(e) => setLimit(parseInt(e.target.value)) } />
             offset：<input type="number" onChange={(e) => setOffset(parseInt(e.target.value))} />
 
-
-            <Link to={`pagination/${limit}/${offset}`}>查询</Link>
-
-
+            <button onClick={() => {
+                navigate(`/score/pagination/${limit}/${offset}`)
+            }} >点击查看</button>
+            {/* <Link to={`pagination/${limit}/${offset}`}>查询</Link> */}
 
             {/* <table>
                 <thead>
@@ -98,6 +97,34 @@ export default () => {
                     {array}
                 </tbody>
             </table> */}
+
+            <form name="scoreform" onsubmit="return false;">
+                <h2>创建</h2>
+                <p>
+                    Id:
+                    <input name="id"/>
+                </p>
+                <p>
+                    学生ID:
+                    <input name="studentId" />
+                </p>
+                <p>
+                    语文成绩:
+                    <input name="chinese" type="number" />
+                </p>
+                <p>
+                    数学成绩:
+                    <input name="math" type="number" />
+                </p>
+                <p>
+                    英语成绩:
+                    <input name="english" type="number" />
+                </p>
+                <button onClick={() => {
+                navigate(`/score/pagination/${limit}/${offset}`)
+            }} >点击查看</button>
+                <input type="reset" value="重置" />
+            </form>
 
             <Outlet />
         </div>

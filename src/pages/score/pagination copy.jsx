@@ -10,38 +10,35 @@ export default () => {
     const [scoreList, setScoreList] = useState()
     const [errorMessage, setErrorMessage] = useState('')
 
-    let limit = parseInt(params.limit)
-    let offset = parseInt(params.offset)
+    const [limit, setLimit] = useState()
+    const [offset, setOffset] = useState()
+
+    setLimit(parseInt(params.limit))
+    setOffset(parseInt(params.offset))
 
 
     useEffect(() => {
-        // if (limit===undefined || offset===undefined) {
-        //     limit = 10;
-        //     offset = 0;
-        // }
-        // else {
-            if (enabledMock) {
-                for (let i = offset; i < (offset + limit); i++) {
-                    array.push(ScoreJson[i]);
-                }
-            } else {
-                fetch(`/api/score/list?limit=${limit}&offset=${offset}`)
-                    .then(async resp => {
-                        const json = await resp.json()
-                        if (resp.status >= 200 && resp.status < 400) {
-                            console.log("json from api:", json)
-                            setScoreList(json.map(score => (
-                                <ScoreTable key={score.id} id={score.id} studentId={score.studentId} chinese={score.chinese} math={score.math} english={score.english} />
-                            )))
-                            setErrorMessage('')
-                        } else {
-                            console.log("error form api:", json)
-                            setScoreList(undefined)
-                            setErrorMessage(json.error)
-                        }
-                    })
+        if (enabledMock) {
+            for (let i = offset; i < (offset + limit); i++) {
+                array.push(ScoreJson[i]);
             }
-        // }
+        } else {
+            fetch(`/api/score/list?limit=${limit}&offset=${offset}`)
+                .then(async resp => {
+                    const json = await resp.json()
+                    if (resp.status >= 200 && resp.status < 400) {
+                        console.log("json from api:", json)
+                        setScoreList(json.map(score => (
+                            <ScoreTable key={score.id} id={score.id} studentId={score.studentId} chinese={score.chinese} math={score.math} english={score.english} />
+                        )))
+                        setErrorMessage('')
+                    } else {
+                        console.log("error form api:", json)
+                        setScoreList(undefined)
+                        setErrorMessage(json.error)
+                    }
+                })
+        }
     }, [limit, offset])
 
     if (!scoreList) {
