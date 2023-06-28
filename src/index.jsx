@@ -7,6 +7,9 @@ import User from './pages/user'
 import UserDetail from './pages/user/detail'
 import UserTest from './pages/user/test'
 
+import Student from './pages/student'
+import StudentDetail from './pages/student/detail'
+
 import Students from './pages/students/body'
 import StudentsId from './pages/students/id'
 import StudentsPagination from './pages/students/pagination'
@@ -86,6 +89,16 @@ const router = createBrowserRouter([
             {
                 path: "pagination/:limit?/:offset?",
                 element: <GradePagination/>,
+            },
+        ]
+    },
+    {
+        path: "student",
+        element: <Student />,
+        children: [
+            {
+                path: "detail/:id?",
+                element: <StudentDetail />,
             },
         ]
     },
