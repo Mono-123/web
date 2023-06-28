@@ -46,10 +46,13 @@ export default () => {
             <p>
                 请选择要查看的信息：
                 <select value={query.tab} onChange={
-                    (e) => setSearchParams({
-                        ...query,
-                        tab: e.target.value
-                    })
+                    (e) => {
+                        let a={
+                            ...query,
+                            tab: e.target.value
+                        };
+                        setSearchParams("query:",query,"a:",a);
+                    console.log(a)}
                 }>
                     <option disabled selected value>请选择</option>
                     <option>name</option>

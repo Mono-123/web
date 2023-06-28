@@ -13,6 +13,7 @@ import StudentDetail from './pages/student/detail'
 import Students from './pages/students/body'
 import StudentsId from './pages/students/id'
 import StudentsPagination from './pages/students/pagination'
+import StudentsInsert from './pages/students/insert'
 
 import Score from './pages/score/body'
 import ScoreId from './pages/score/id'
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
             {
                 path: "pagination/:limit?/:offset?",
                 element: <StudentsPagination/>,
+            },
+            {
+                path: "insert/:name?/:gender?/:grade?/:score?",
+                element: <StudentsInsert/>,
             },
         ]
     },
