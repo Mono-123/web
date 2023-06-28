@@ -4,7 +4,7 @@ import Score from '../../components/score'
 
 export default () => {
     const params = useParams()
-    const [scoreList, setScoreList] = useState()
+    const [score, setScore] = useState()
     const [errorMessage, setErrorMessage] = useState('')
     const id = params.id
     const studentId = params.studentId
@@ -31,17 +31,17 @@ export default () => {
             const json = await resp.json()
             if (resp.status >= 200 && resp.status < 400) {
                 console.log("json from api:", json)
-                setScoreList(<Score key={json.id} id={json.id} studentId={json.studentId} chinese={json.chinese} math={json.math} english={json.english} />)
+                setScore(<Score key={json.id} id={json.id} studentId={json.studentId} chinese={json.chinese} math={json.math} english={json.english} />)
                 setErrorMessage('')
             } else {
                 console.log("error form api:", json)
-                setScoreList(undefined)
+                setScore(undefined)
                 setErrorMessage(json.error)
             }
         })
     }, [studentId, chinese, math, english])
 
-    if (!scoreList) {
+    if (!score) {
         return (
             <div><br></br>
                 {errorMessage || 'Not found'}</div>
@@ -50,7 +50,8 @@ export default () => {
 
     return (
         <div>
-            {scoreList}
+        <p>更新了ID为{id}的学生成绩信息</p>
+            {score}
         </div>
     )
 

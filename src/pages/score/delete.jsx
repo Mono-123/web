@@ -13,9 +13,9 @@ export default () => {
             method: 'DELETE',
         }).then(async resp => {
             if (resp.status==200) {
-               setResult("删除成功")
+               setResult("删除了ID为"+id+"的学生成绩信息")
             } else {
-                console.log("error form api:",resp)
+                console.log("error form api:",resp,id)
                 setResult(resp.statusText)
             }
         })

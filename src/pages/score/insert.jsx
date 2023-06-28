@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useParams} from 'react-router-dom'
-import Score from '../../components/score'
+import Score from '../../components/ScoreId'
 
 export default () => {
     const params = useParams()
-    const [scoreList, setScoreList] = useState()
+    const [score, setScore] = useState()
+    const [id, setId] = useState()
     const [errorMessage, setErrorMessage] = useState('')
     const url = '/api/score'
 
@@ -29,17 +30,18 @@ export default () => {
             const json = await resp.json()
             if (resp.status >= 200 && resp.status < 400) {
                 console.log("json from api:", json)
-                setScoreList(<Score key={json.id} id={json.id} studentId={json.studentId} chinese={json.chinese} math={json.math} english={json.english} />)
+                setScore(<Score key={json.id} id={json.id} studentId={json.studentId} chinese={json.chinese} math={json.math} english={json.english} />)
+                setId(json.id)
                 setErrorMessage('')
             } else {
                 console.log("error form api:", json)
-                setScoreList(undefined)
+                setScore(undefined)
                 setErrorMessage(json.error)
             }
         })
     }, [studentId, chinese, math, english])
 
-    if (!scoreList) {
+    if (!score) {
         return (
             <div><br></br>
                 {errorMessage || 'Not found'}</div>
@@ -48,7 +50,8 @@ export default () => {
 
     return (
         <div>
-            {scoreList}
+            <p>创建了ID为{id}的学生成绩信息</p>
+            {score}
         </div>
     )
 
