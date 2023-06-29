@@ -4,7 +4,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from './App'
 import ErrorPage from './pages/error'
 import Student from './pages/student'
-import StudentDetail from './pages/student/detail'
+import StudentList from './pages/student/list'
+import StudentId from './pages/student/id'
+import StudentEdit from './pages/student/edit'
 
 // 清除现有的 HTML 内容
 document.body.innerHTML = '<div id="app"></div>';
@@ -25,8 +27,16 @@ const router = createBrowserRouter([
         element: <Student />,
         children: [
             {
+                path: "",
+                element: <StudentList />,
+            },
+            {
                 path: "detail/:id?",
-                element: <StudentDetail />,
+                element: <StudentId />,
+            },
+            {
+                path: "edit/:id?",
+                element: <StudentEdit />,
             },
         ]
     },
