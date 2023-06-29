@@ -80,6 +80,10 @@ const router = createBrowserRouter([
                 path: "delete/:id?",
                 element: <StudentsDelete/>,
             },
+            {
+                path: ":updateId?/:updateName?/:updateGender?/:updateGrade?/:updatesScore?",
+                element: <Students/>,
+            },
         ]
     },
     {

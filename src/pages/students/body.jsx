@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { Link, Outlet, useNavigate,useParams } from 'react-router-dom'
 
 export default () => {
     // const [visibleLink, setVisibleLink] = useState()
     const navigate = useNavigate()
+    const params = useParams()
 
     const [id, setId] = useState()
-    
+
     const [limit, setLimit] = useState(10)
     const [offset, setOffset] = useState(0)
 
@@ -22,6 +23,14 @@ export default () => {
     const [updateScore, setUpdateScore] = useState()
 
     const [deleteId, setDeleteId] = useState()
+
+    // if (typeof (updateId) != undefined && typeof (updateName) != undefined && typeof (updateGender) != undefined && typeof (updateGrade) != undefined && typeof (updateScore) != undefined) {
+    //     setUpdateId(params.updateId)
+    //     setUpdateName(params.updateName)
+    //     setUpdateGender(params.updateGender)
+    //     setUpdateGrade (params.updateGrade)
+    //     setUpdateScore (params.updateScore)
+    // }
 
     return (
         <div>
@@ -60,43 +69,6 @@ export default () => {
                 <h2>创建</h2>
                 <p>
                     姓名:
-                    <input onChange={(e) => setUpdateName(e.target.value)} />
-                </p>
-                <div>
-                    性别:
-                    女 <input name="gender" type="radio" checked onClick={() => setUpdateGender(0)} />
-                    男 <input name="gender" type="radio" onClick={() => setUpdateGender(1)} />
-                </div>
-                <p>
-                    年级:
-                    <select onChange={(e) => setUpdateGrade(parseInt(e.target.value))}>
-                        <option disabled selected value>--请选择--</option>
-                        <option value="1">一年级</option>
-                        <option value="2">二年级</option>
-                        <option value="3">三年级</option>
-                        <option value="4">四年级</option>
-                    </select>
-                </p>
-                <p>
-                    分数:
-                    <input onChange={(e) => setUpdateScore(parseInt(e.target.value))} />
-                </p>
-
-                <button onClick={() => {
-                    navigate(`/students/update/${updateName}/${updateGender}/${updateGrade}/${updateScore}`)
-                }} disabled={!updateName || !updateGrade || !updateScore} >提交</button>
-
-                <input type="reset" value="重置" />
-            </form>
-
-            <form>
-                <h2>更新</h2>
-                <p>
-                    ID:
-                    <input name="Id" onChange={(e) => setUpdateId(parseInt(e.target.value))} />
-                </p>
-                <p>
-                    姓名:
                     <input onChange={(e) => setName(e.target.value)} />
                 </p>
                 <div>
@@ -120,8 +92,45 @@ export default () => {
                 </p>
 
                 <button onClick={() => {
-                    navigate(`/students/update/${updateId}/${name}/${gender}/${grade}/${score}`)
-                }} disabled={!updateId||!name || !grade || !score} >提交</button>
+                    navigate(`/students/insert/${name}/${gender}/${grade}/${score}`)
+                }} disabled={!name || !grade || !score} >提交</button>
+
+                <input type="reset" value="重置" />
+            </form>
+
+            <form>
+                <h2>更新</h2>
+                <p>
+                    ID:
+                    <input name="Id" onChange={(e) => setUpdateId(parseInt(e.target.value))} />
+                </p>
+                <p>
+                    姓名:
+                    <input onChange={(e) => setUpdateName(e.target.value)} />
+                </p>
+                <div>
+                    性别:
+                    女 <input name="gender" type="radio" checked onClick={() => setUpdateGender(0)} />
+                    男 <input name="gender" type="radio" onClick={() => setUpdateGender(1)} />
+                </div>
+                <p>
+                    年级:
+                    <select onChange={(e) => setUpdateGrade(parseInt(e.target.value))}>
+                        <option disabled selected value>--请选择--</option>
+                        <option value="1">一年级</option>
+                        <option value="2">二年级</option>
+                        <option value="3">三年级</option>
+                        <option value="4">四年级</option>
+                    </select>
+                </p>
+                <p>
+                    分数:
+                    <input onChange={(e) => setUpdateScore(parseInt(e.target.value))} />
+                </p>
+
+                <button onClick={() => {
+                    navigate(`/students/update/${updateId}/${updateName}/${updateGender}/${updateGrade}/${updateScore}/`)
+                }} disabled={!updateId || !updateName || !updateGrade || !updateScore} >提交</button>
 
                 <input type="reset" value="重置" />
             </form>

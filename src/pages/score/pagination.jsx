@@ -10,16 +10,24 @@ export default () => {
     const [scoreList, setScoreList] = useState()
     const [errorMessage, setErrorMessage] = useState('')
 
-    let limit = parseInt(params.limit)
-    let offset = parseInt(params.offset)
+    // const limit=params.limit
+    // const offset=params.offset
 
+    // const [limit, setLimit] = useState(10)
+    // const [offset, setOffset] = useState(0)
+    
+    const [limit, setLimit] = useState()
+    const [offset, setOffset] = useState()
+    
+    setLimit(params.limit)
+    setOffset(params.offset)
 
     useEffect(() => {
-        // if (limit===undefined || offset===undefined) {
-        //     limit = 10;
-        //     offset = 0;
-        // }
-        // else {
+        if (limit===undefined || offset===undefined) {
+            limit = 10;
+            offset = 0;
+        }
+        else {
             if (enabledMock) {
                 for (let i = offset; i < (offset + limit); i++) {
                     array.push(ScoreJson[i]);
@@ -35,13 +43,13 @@ export default () => {
                             )))
                             setErrorMessage('')
                         } else {
-                            console.log("error form api:", json)
+                            console.log("error form api:", json,limit,offset)
                             setScoreList(undefined)
                             setErrorMessage(json.error)
                         }
                     })
             }
-        // }
+        }
     }, [limit, offset])
 
     if (!scoreList) {
