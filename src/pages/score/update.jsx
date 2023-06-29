@@ -6,6 +6,7 @@ export default () => {
     const params = useParams()
     const [score, setScore] = useState()
     const [errorMessage, setErrorMessage] = useState('')
+    
     const id = params.id
     const studentId = params.studentId
     const chinese = params.chinese

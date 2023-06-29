@@ -31,7 +31,7 @@ export default () => {
         }
         if (isNaN(offset)) {
             offset = 0;
-            console.log("offset进行了判断")
+            console.log("进行了判断")
         }
         if (enabledMock) {
             for (let i = offset; i < (offset + limit); i++) {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, Outlet, useNavigate,useParams } from 'react-router-dom'
+import { Link, Outlet, useNavigate, useParams } from 'react-router-dom'
 
 export default () => {
     // const [visibleLink, setVisibleLink] = useState()
@@ -23,7 +23,7 @@ export default () => {
     const [updateScore, setUpdateScore] = useState()
 
     const [deleteId, setDeleteId] = useState()
-    
+
 
     // if (typeof (params.updateId) != undefined && typeof (params.updateName) != undefined && typeof (params.updateGender) != undefined && typeof (params.updateGrade) != undefined && typeof (params.updateScore) != undefined) {
     //     setUpdateId(params.updateId)
@@ -105,7 +105,7 @@ export default () => {
                     ID:
                     <input name="Id" onChange={(e) => setUpdateId(parseInt(e.target.value))} />
                 </p>
-                <p>
+                {/* <p>
                     姓名:
                     <input onChange={(e) => setUpdateName(e.target.value)} />
                 </p>
@@ -127,13 +127,13 @@ export default () => {
                 <p>
                     分数:
                     <input onChange={(e) => setUpdateScore(parseInt(e.target.value))} />
-                </p>
+                </p> */}
 
                 <button onClick={() => {
-                    navigate(`/students/update/${updateId}/${updateName}/${updateGender}/${updateGrade}/${updateScore}/`)
-                }} disabled={!updateId || !updateName || !updateGrade || !updateScore} >提交</button>
-
-                <input type="reset" value="重置" />
+                    if (!updateId) return
+                    navigate(`/score/updateId/${updateId}`)
+                }} disabled={!updateId}>更新</button>
+                
             </form>
 
             <h4>按id删除</h4>

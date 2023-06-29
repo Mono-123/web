@@ -21,10 +21,10 @@ export default () => {
     const [english, setEnglish] = useState()
 
     const [updateId, setUpdateId] = useState()
-    const [updateStudentId, setUpdateStudentId] = useState()
-    const [updateChinese, setUpdateChinese] = useState()
-    const [updateMath, setUpdateMath] = useState()
-    const [updateEnglish, setUpdateEnglish] = useState()
+    // const [updateStudentId, setUpdateStudentId] = useState()
+    // const [updateChinese, setUpdateChinese] = useState()
+    // const [updateMath, setUpdateMath] = useState()
+    // const [updateEnglish, setUpdateEnglish] = useState()
     
     const [deleteId, setDeleteId] = useState()
     
@@ -77,14 +77,26 @@ export default () => {
 
                 <input type="reset" value="重置" />
             </form>
+            
+            <h4>按id删除</h4>
+            请输入需要删除的学生id:
+            <input value={id} onChange={(e) => setDeleteId(e.target.value)}></input>
+            <button onClick={() => {
+                if (!deleteId) return
+                navigate(`/score/delete/${deleteId}`)
+            }} disabled={!deleteId}>删除</button>
 
             <form >
                 <h2>更新</h2>
                 <p>
-                    ID:
+                    请输入需要更新的学生ID:
                     <input name="Id" onChange={(e) => setUpdateId(parseInt(e.target.value))} />
                 </p>
-                <p>
+                <button onClick={() => {
+                if (!updateId) return
+                navigate(`/students/updateId/${updateId}`)
+            }} disabled={!updateId}>更新</button>
+                {/* <p>
                     学生学号
                     <input onChange={(e) => setUpdateStudentId(parseInt(e.target.value))} />
                 </p>
@@ -99,20 +111,13 @@ export default () => {
                 <p>
                     英语成绩:
                     <input onChange={(e) => setUpdateEnglish(parseInt(e.target.value))} />
-                </p>
-                <button onClick={() => {
+                </p> */}
+                {/* <button onClick={() => {
                     navigate(`/score/update/${updateId}/${updateStudentId}/${updateChinese}/${updateMath}/${updateEnglish}`)
                 }} disabled={!updateId || !updateStudentId || !updateChinese || !updateMath || !updateEnglish}>提交</button>
-                <input type="reset" value="重置" />
+                <input type="reset" value="重置" /> */}
             </form>
 
-            <h4>按id删除</h4>
-            请输入需要删除的学生id:
-            <input value={id} onChange={(e) => setDeleteId(e.target.value)}></input>
-            <button onClick={() => {
-                if (!deleteId) return
-                navigate(`/score/delete/${deleteId}`)
-            }} disabled={!deleteId}>删除</button>
 
             <Outlet />
         </div>

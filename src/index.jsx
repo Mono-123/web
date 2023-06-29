@@ -15,6 +15,7 @@ import StudentsId from './pages/students/id'
 import StudentsPagination from './pages/students/pagination'
 import StudentsInsert from './pages/students/insert'
 import StudentsUpdate from './pages/students/update'
+import StudentsUpdateId from './pages/students/updateId'
 import StudentsDelete from './pages/students/delete'
 
 import Score from './pages/score/body'
@@ -22,6 +23,7 @@ import ScoreId from './pages/score/id'
 import ScorePagination from './pages/score/pagination'
 import ScoreInsert from './pages/score/insert'
 import ScoreUpdate from './pages/score/update'
+import ScoreUpdateId from './pages/score/updateId'
 import ScoreDelete from './pages/score/delete'
 
 import Grade from './pages/grade/body'
@@ -77,13 +79,17 @@ const router = createBrowserRouter([
                 element: <StudentsUpdate/>,
             },
             {
+                path: "updateId/:id?/:name?/:gender?/:grade?/:score?",
+                element: <StudentsUpdateId/>,
+            },
+            {
                 path: "delete/:id?",
                 element: <StudentsDelete/>,
             },
-            {
-                path: ":updateId?/:updateName?/:updateGender?/:updateGrade?/:updatesScore?",
-                element: <Students/>,
-            },
+            // {
+            //     path: ":updateId?/:updateName?/:updateGender?/:updateGrade?/:updatesScore?",
+            //     element: <Students/>,
+            // },
         ]
     },
     {
@@ -105,6 +111,10 @@ const router = createBrowserRouter([
             {
                 path: "update/:id?/:studentId?/:chinese?/:math?/:english?",
                 element: <ScoreUpdate/>,
+            },
+            {
+                path: "updateId/:id?/:studentId?/:chinese?/:math?/:english?",
+                element: <ScoreUpdateId/>,
             },
             {
                 path: "delete/:id?",
