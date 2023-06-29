@@ -1,62 +1,59 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
-import StudentsJson from '../../../mock/students.json'
-import Students from '../../components/Students'
+import React, { useEffect, useState } from 'react'
+import { useParams, useSearchParams } from 'react-router-dom'
+import Students from '../../components/StudentsId'
 
 export default () => {
     const params = useParams()
-    // let id = parseInt(params.id)
-
-    // const [visible, setVisible] = useState(false)
-    // const [visible2, setVisible2] = useState(false)
-    let visible=false;
-    let visible2=false;
-
-    let list = StudentsJson.map(students => (
-        <Students key={students.id} id={students.id} name={students.name} gender={students.gender} grade={students.grade} score={students.score} />
-    ))
-
-    let i;
-    for (i = 0; i < (list.length - 1); i++) {
-        if (list[i].id == params.id) {
-            break;
-        }
-    }
-
-    let list2 = []
+    const [searchParams, setSearchParams] = useSearchParams();
+    const query = Object.fromEntries(searchParams);
     
-    // if (i == list.length - 1) {
-    //     visible=false;
-    //     visible2=true;
-    // } else {
-    //     visible2=false;
-    //     visible=true;
+    const [students, setStudents] = useState()
+    const [errorMessage, setErrorMessage] = useState('')
+
+    useEffect(() => {
+        if(!params.id) return
+            fetch(`/api/student/${params.id}`)
+            .then(async resp => {
+                const json = await resp.json()
+                if(resp.status>=200&&resp.status<400){
+                    console.log("json from api:",json)
+                    setStudents(json)
+                    setErrorMessage('')
+                } else {
+                    console.log("error form api:", json) 
+                    setStudents(undefined)
+                    setErrorMessage(json.error)
+                }
+            })
         
-    // }
-    const students = StudentsJson.find(u => u.id.toString() === params.id);
-    list2 = <Students key={students.id} id={students.id} name={students.name} gender={students.gender} grade={students.grade} score={students.score} />
+    }, [params.id])
+    
+    if(!params.id) return null;
+    if(!students){
+        return(
+            <div><br></br>
+            {errorMessage || 'Not found'}</div>
+        )
+    }
     return (
         <div>
-            <h4>学号为{params.id}的学生的个人信息</h4>
-            {/* {visible && ( */}
-                <span
-                ><table>
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>名称</th>
-                                <th>性别</th>
-                                <th>年级</th>
-                                <th>分数</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table">
-                            {list2}
-                        </tbody>
-                    </table>
-                </span>
-            {/* } */}
-            {/* {visible2&&"未找到学号为" +params.id+ "的学生成绩"} */}
+            <h2>学号为{params.id}的学生信息</h2>
+            <p>
+                请选择要查看的学生信息：
+                <select value= {query.tab}onChange={
+                    (e)=>setSearchParams({
+                        ...query,
+                        tab:e.target.value
+                    })
+                }>
+                    <option disabled selected value>--请选择--</option>
+                    <option>name</option>
+                    <option>gender</option>
+                    <option>grade</option>
+                    <option>score</option>
+                </select>
+            </p>
+            < Students {...students} field={query.tab}/>
         </div>
     )
 }

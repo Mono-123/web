@@ -1,26 +1,42 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Students from '../../components/Students'
-import StudentsJson from '../../../mock/students.json'
+import StudentsTable from '../../components/StudentsTable'
 
 export default () => {
     const params = useParams()
+    const [studentsList, setStudentsList] = useState()
+    const [errorMessage, setErrorMessage] = useState('')
 
     let limit = parseInt(params.limit)
     let offset = parseInt(params.offset)
 
-    let list = StudentsJson.map(students => (
-        <Students key={students.id} id={students.id} name={students.name} gender={students.gender} grade={students.grade} score={students.score} />
-    ))
+    useEffect(() => {
+        fetch(`/api/student/list?limit=${limit}&offset=${offset}`)
+            .then(async resp => {
+                const json = await resp.json()
+                if (resp.status >= 200 && resp.status < 400) {
+                    console.log("json from api:", json)
+                    setStudentsList(json.map(students => (
+                        <StudentsTable key={students.id} id={students.id} name={students.name} gender={students.gender} grade={students.grade} score={students.score} />
+                    )))
+                    setErrorMessage('')
+                } else {
+                    console.log("error form api:", json)
+                    setStudentsList(undefined)
+                    setErrorMessage(json.error)
+                }
+            })
+    }, [limit, offset])
 
-    let array = [];
-    for (let i = offset; i < (offset + limit); i++) {
-        array.push(list[i]);
+    if (!studentsList) {
+        return (
+            <div><br></br>
+                {errorMessage || 'Not found'}</div>
+        )
     }
 
     return (
         <div>
-            
             <table>
                 <thead>
                     <tr>
@@ -29,13 +45,14 @@ export default () => {
                         <th>性别</th>
                         <th>年级</th>
                         <th>分数</th>
+                        <th>操作</th>
                     </tr>
                 </thead>
                 <tbody id="table">
-                    {array}
+                    {studentsList}
                 </tbody>
             </table>
-
         </div>
+
     )
 }

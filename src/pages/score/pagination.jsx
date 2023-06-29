@@ -56,11 +56,11 @@ export default () => {
             <table>
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>名称</th>
-                        <th>性别</th>
-                        <th>年级</th>
-                        <th>分数</th>
+                        <th>ID</th>
+                        <th>学生学号</th>
+                        <th>语文成绩</th>
+                        <th>数学成绩</th>
+                        <th>英语成绩</th>
                     </tr>
                 </thead>
                 <tbody id="table">

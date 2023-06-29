@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams} from 'react-router-dom'
-import Students from '../../components/StudentsId'
+import Students from '../../components/Students'
 
 export default () => {
     const params = useParams()

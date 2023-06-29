@@ -8,10 +8,9 @@ export default () => {
         <Score key={score.id} id={score.id} studentId={score.studentId} chinese={score.chinese} math={score.math} english={score.english} />
     ))
     const params = useParams()
-    const [id, setId] = useState()
-    const [updateId, setUpdateId] = useState()
-    const [deleteId, setDeleteId] = useState()
     const navigate = useNavigate()
+
+    const [id, setId] = useState()
 
     const [limit, setLimit] = useState(10)
     const [offset, setOffset] = useState(0)
@@ -21,10 +20,14 @@ export default () => {
     const [math, setMath] = useState()
     const [english, setEnglish] = useState()
 
+    const [updateId, setUpdateId] = useState()
     const [updateStudentId, setUpdateStudentId] = useState()
     const [updateChinese, setUpdateChinese] = useState()
     const [updateMath, setUpdateMath] = useState()
     const [updateEnglish, setUpdateEnglish] = useState()
+    
+    const [deleteId, setDeleteId] = useState()
+    
     //key尽量不要一样
     // let getbyid = ScoreJson.find(score => score.id == 1);
     // const list2 = <Score key={10000} id={1} studentId={getbyid.studentId} chinese={getbyid.chinese} math={getbyid.math} english={getbyid.english} />

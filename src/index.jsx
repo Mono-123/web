@@ -14,6 +14,8 @@ import Students from './pages/students/body'
 import StudentsId from './pages/students/id'
 import StudentsPagination from './pages/students/pagination'
 import StudentsInsert from './pages/students/insert'
+import StudentsUpdate from './pages/students/update'
+import StudentsDelete from './pages/students/delete'
 
 import Score from './pages/score/body'
 import ScoreId from './pages/score/id'
@@ -69,6 +71,14 @@ const router = createBrowserRouter([
             {
                 path: "insert/:name?/:gender?/:grade?/:score?",
                 element: <StudentsInsert/>,
+            },
+            {
+                path: "update/:id?/:name?/:gender?/:grade?/:score?",
+                element: <StudentsUpdate/>,
+            },
+            {
+                path: "delete/:id?",
+                element: <StudentsDelete/>,
             },
         ]
     },
