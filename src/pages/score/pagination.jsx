@@ -10,45 +10,50 @@ export default () => {
     const [scoreList, setScoreList] = useState()
     const [errorMessage, setErrorMessage] = useState('')
 
-    // const limit=params.limit
-    // const offset=params.offset
+    let limit = params.limit
+    let offset = params.offset
 
     // const [limit, setLimit] = useState(10)
     // const [offset, setOffset] = useState(0)
-    
-    const [limit, setLimit] = useState()
-    const [offset, setOffset] = useState()
-    
-    setLimit(params.limit)
-    setOffset(params.offset)
+
+    // const [limit, setLimit] = useState()
+    // const [offset, setOffset] = useState()
+
+    // setLimit(params.limit)
+    // setOffset(params.offset)
 
     useEffect(() => {
-        if (limit===undefined || offset===undefined) {
+        console.log('limit:', limit, 'offset:', offset);
+        // if (limit !== limit || offset !== offset) {
+            if (isNaN(limit)) {
             limit = 10;
-            offset = 0;
+            console.log("limit进行了判断")
         }
-        else {
-            if (enabledMock) {
-                for (let i = offset; i < (offset + limit); i++) {
-                    array.push(ScoreJson[i]);
-                }
-            } else {
-                fetch(`/api/score/list?limit=${limit}&offset=${offset}`)
-                    .then(async resp => {
-                        const json = await resp.json()
-                        if (resp.status >= 200 && resp.status < 400) {
-                            console.log("json from api:", json)
-                            setScoreList(json.map(score => (
-                                <ScoreTable key={score.id} id={score.id} studentId={score.studentId} chinese={score.chinese} math={score.math} english={score.english} />
-                            )))
-                            setErrorMessage('')
-                        } else {
-                            console.log("error form api:", json,limit,offset)
-                            setScoreList(undefined)
-                            setErrorMessage(json.error)
-                        }
-                    })
+        if (isNaN(offset)) {
+            offset = 0;
+            console.log("offset进行了判断")
+        }
+        if (enabledMock) {
+            for (let i = offset; i < (offset + limit); i++) {
+                array.push(ScoreJson[i]);
             }
+        } else {
+            fetch(`/api/score/list?limit=${limit}&offset=${offset}`)
+                .then(async resp => {
+                    const json = await resp.json()
+                    if (resp.status >= 200 && resp.status < 400) {
+                        console.log("json from api:", json, 'limit:', limit, 'offset:', offset)
+                        setScoreList(json.map(score => (
+                            <ScoreTable key={score.id} id={score.id} studentId={score.studentId} chinese={score.chinese} math={score.math} english={score.english} />
+                        )))
+                        setErrorMessage('')
+                    } else {
+                        console.log("error form api:", json, 'limit:', limit, 'offset:', offset)
+                        setScoreList(undefined)
+                        setErrorMessage(json.error)
+                    }
+                })
+
         }
     }, [limit, offset])
 
