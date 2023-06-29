@@ -23,6 +23,7 @@ export default () => {
     const [updateScore, setUpdateScore] = useState()
 
     const [deleteId, setDeleteId] = useState()
+    
 
     // if (typeof (params.updateId) != undefined && typeof (params.updateName) != undefined && typeof (params.updateGender) != undefined && typeof (params.updateGrade) != undefined && typeof (params.updateScore) != undefined) {
     //     setUpdateId(params.updateId)

@@ -11,6 +11,16 @@ export default () => {
     let offset = parseInt(params.offset)
 
     useEffect(() => {
+        console.log('limit:', limit, 'offset:', offset);
+        // if (limit !== limit || offset !== offset) {
+            if (isNaN(limit)) {
+            console.log("limit为NaN")
+            limit = 10;
+        }
+        if (isNaN(offset)) {
+            console.log("offset为NaN")
+            offset = 0;
+        }
         fetch(`/api/student/list?limit=${limit}&offset=${offset}`)
             .then(async resp => {
                 const json = await resp.json()
