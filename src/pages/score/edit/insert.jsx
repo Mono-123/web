@@ -30,7 +30,7 @@ export default () => {
     }
 
     return (
-        <div>
+        <div className="student-table">
             <h2>insert</h2>
 
             <p>

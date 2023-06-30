@@ -39,7 +39,7 @@ export default () => {
     }
 
     return (
-        <div>
+        <div className="student-table">
             <h2>Edit {params.id}</h2>
 
             <p>

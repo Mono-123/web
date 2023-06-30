@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import StudentAPI from '../../../service/student'
 import './style.css'
+import {GENDERS,GRADES} from '../components/detail'
 
 export default () => {
     const params = useParams()
@@ -39,7 +40,7 @@ export default () => {
     }
 
     return (
-        <div>
+        <div className="student-table">
             <h2>Edit {params.id}</h2>
 
             <p>
@@ -57,7 +58,7 @@ export default () => {
                         {GRADES.map((grade, idx) => idx !== 0 && (
                             <option key={grade} value={idx - 1}>{grade}</option>
                         ))}
-                    </select>
+                    </select><br />
 
 
                     <label for="gender">性别</label><br />
