@@ -26,37 +26,40 @@ const router = createBrowserRouter([
         path: "/",
         element: <App />,
         errorElement: <ErrorPage/>,
+        children: [
+            {
+                path: "student",
+                element: <Student/>,
+                children: [
+                    {
+                        path: "",
+                        element: <StudentList/>,
+                    },
+                    {
+                        path: "detail/:id?",
+                        element: <StudentId/>,
+                    },
+                    {
+                        path: "edit/:id?",
+                        element: <StudentEdit/>,
+                    },
+                    {
+                        path: "insert/:id?",
+                        element: <StudentInsert/>,
+                    },
+                    {
+                        path: "delete/:id?",
+                        element: <StudentDelete/>,
+                    },
+                ]
+            },
+        ]
     },
     {
         path: "hello",
         element: <div>world</div>,
     },
-    {
-        path: "student",
-        element: <Student/>,
-        children: [
-            {
-                path: "",
-                element: <StudentList/>,
-            },
-            {
-                path: "detail/:id?",
-                element: <StudentId/>,
-            },
-            {
-                path: "edit/:id?",
-                element: <StudentEdit/>,
-            },
-            {
-                path: "insert/:id?",
-                element: <StudentInsert/>,
-            },
-            {
-                path: "delete/:id?",
-                element: <StudentDelete/>,
-            },
-        ]
-    },
+    
     {
         path: "score",
         element: <Score/>,
