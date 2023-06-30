@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 export default () => {
     const { limit, offset } = usePagination();
     const [data, setData] = useState([])
-    const [length, setLength] = useState()
+    // const [length, setLength] = useState()
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -48,7 +48,7 @@ export default () => {
                                     <button onClick={() => navigate(`/student/edit/${d.id}`)}>编辑</button>
                                     <button onClick={() => {
                                         console.log(d.id);
-                                        navigate(`/student/delete/${d.id}?${limit}&${offset}`)}}>删除</button>
+                                        navigate(`/student/delete/${d.id}?limit=${limit}&offset=${offset}`)}}>删除</button>
                                 </div>
                             }
                         />

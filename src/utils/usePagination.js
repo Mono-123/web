@@ -1,4 +1,5 @@
 
+import { useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom'
 
 export default () => {
@@ -25,11 +26,11 @@ export default () => {
                 offset: offset + limit,
             })
         },
-        goPage:(page)=>{
+        goPage:(jump)=>{
             setSearchParams({
                 ...query,
                 limit,
-                offset:(page-1)*10,
+                offset:(jump-1)*10,
             })
         },
         page: offset / limit + 1,

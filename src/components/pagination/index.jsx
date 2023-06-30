@@ -1,10 +1,10 @@
 import { useState } from "react";
 import usePagination from "../../utils/usePagination"
-// import "./inputStyle.css"
+import "./inputStyle.css"
 
 export default () => {
-    const { page, goNextPage, goPage,goFirstPage } = usePagination();
-    const[jump,setJump]=useState()
+    const { page, goNextPage, goPage, goFirstPage } = usePagination();
+    const [jump, setJump] = useState()
 
     return (
         <div>
@@ -14,8 +14,9 @@ export default () => {
 
             <button onClick={goNextPage}>下一页</button>
 
-           <p> 跳转到<input type="number" onChange={(e)=>setJump(e.target.value)}/>
-            <button onClick={goPage(jump)} disabled={!jump}>确定</button></p>
+            <p> 跳转到第<input onChange={(e) => setJump(e.target.value)} />页
+                {/* <button onClick={goPage(jump)} disabled={!jump}>确定</button> */}
+            </p>
         </div>
     )
 }

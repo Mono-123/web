@@ -15,6 +15,11 @@ export default () => {
         StudentAPI.getById(params.id)
             .then(data => {
                 setData(data)
+                if (!data) {
+                    return (
+                        <div>{errorMessage || 'Not found'}</div>
+                    )
+                }
             })
             .catch(error => {
                 setErrorMessage(error.message)
@@ -23,11 +28,6 @@ export default () => {
 
     if (!params.id) return null;
 
-    if (!data) {
-        return (
-            <div>{errorMessage || 'Not found'}</div>
-        )
-    }
 
     return (
         <div>
