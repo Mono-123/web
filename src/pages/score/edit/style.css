@@ -1,7 +1,7 @@
-input[type=text],
-input[type=number],
-select {
-    width: 100px;
+.student-table input[type=text],
+.student-table input[type=number],
+.student-table select {
+    width: 200px;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -10,12 +10,12 @@ select {
     box-sizing: border-box;
 }
 
-input[type=submit]:hover {
-    background-color: #45a049;
+.student-table button:hover {
+    background-color: #719973;
 }
 
-.form {
+.student-table .form {
     border-radius: 5px;
-    background-color: #bfffea;
+    background-color: #b5e9d0;
     padding: 20px;
 }
