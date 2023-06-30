@@ -6,7 +6,9 @@ import ErrorPage from './pages/error'
 import Student from './pages/student'
 import StudentList from './pages/student/list'
 import StudentId from './pages/student/id'
+import StudentDelete from './pages/student/delete'
 import StudentEdit from './pages/student/edit'
+import StudentInsert from './pages/student/edit/insert'
 
 // 清除现有的 HTML 内容
 document.body.innerHTML = '<div id="app"></div>';
@@ -16,7 +18,7 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorPage/>,
     },
     {
         path: "hello",
@@ -24,19 +26,27 @@ const router = createBrowserRouter([
     },
     {
         path: "student",
-        element: <Student />,
+        element: <Student/>,
         children: [
             {
                 path: "",
-                element: <StudentList />,
+                element: <StudentList/>,
             },
             {
                 path: "detail/:id?",
-                element: <StudentId />,
+                element: <StudentId/>,
             },
             {
                 path: "edit/:id?",
-                element: <StudentEdit />,
+                element: <StudentEdit/>,
+            },
+            {
+                path: "insert/:id?",
+                element: <StudentInsert/>,
+            },
+            {
+                path: "delete/:id?",
+                element: <StudentDelete/>,
             },
         ]
     },

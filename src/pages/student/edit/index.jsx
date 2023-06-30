@@ -47,7 +47,7 @@ export default () => {
                 <Link to='/student'>返回列表</Link>
             </p>
 
-            <form onsubmit="return false;">
+            <form>
                 <div>
                     <label for="name">姓名</label><br />
                     <input type="text" name="name" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} /><br />
@@ -71,7 +71,7 @@ export default () => {
                     <label for="score">分数</label><br />
                     <input type="number" name="score" value={formData.score} onChange={e => setFormData({ ...formData, score: Number.parseInt(e.target.value) })} /><br />
 
-                    <button onClick={() => console.log(formData)} type="button">查看</button>
+                    {/* <button onClick={() => console.log(formData)} type="button">查看</button> */}
 
                     <button type="button" onClick={() => setFormData(data)}>清空</button>
 

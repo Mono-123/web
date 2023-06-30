@@ -11,6 +11,13 @@ export default () => {
     return {
         limit,
         offset,
+        goFirstPage: () => {
+            setSearchParams({
+                ...query,
+                limit,
+                offset: 0,
+            })
+        },
         goNextPage: () => {
             setSearchParams({
                 ...query,
@@ -18,11 +25,11 @@ export default () => {
                 offset: offset + limit,
             })
         },
-        goFirstPage: () => {
+        goPage:(page)=>{
             setSearchParams({
                 ...query,
                 limit,
-                offset: 0,
+                offset:(page-1)*10,
             })
         },
         page: offset / limit + 1,

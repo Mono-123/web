@@ -1,7 +1,7 @@
 import './style.css'
 
 export const GENDERS = [
-    "男", "女"
+   "女", "男" 
 ]
 
 export const GRADES = [

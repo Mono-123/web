@@ -8,10 +8,20 @@ export default {
             }
         })
     },
+    listAll: () => {
+        return API_SERVER.get('/student/list', {
+        })
+    },
     getById: (id) => {
         return API_SERVER.get(`/student/${id}`)
     },
     updateById: (formData) => {
         return API_SERVER.put(`/student/${formData.id}`, formData)
+    },
+    insert: (formData) => {
+        return API_SERVER.post(`/student`, formData)
+    },
+    delete: (id) => {
+        return API_SERVER.delete(`/student/${id}`)
     },
 }

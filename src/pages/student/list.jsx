@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 export default () => {
     const { limit, offset } = usePagination();
     const [data, setData] = useState([])
+    const [length, setLength] = useState()
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,6 +16,13 @@ export default () => {
             setData(data)
         })
     }, [limit, offset])
+
+    // useEffect(() => {
+    //     StudentAPI.listAll().then(length=>{
+    //         setLength(length)
+    //         console.log(length)
+    //     })
+    // })
 
     return (
         <div className="student-table">
@@ -38,6 +46,9 @@ export default () => {
                                 <div>
                                     <button onClick={() => navigate(`/student/detail/${d.id}`)}>查看</button>
                                     <button onClick={() => navigate(`/student/edit/${d.id}`)}>编辑</button>
+                                    <button onClick={() => {
+                                        console.log(d.id);
+                                        navigate(`/student/delete/${d.id}?${limit}&${offset}`)}}>删除</button>
                                 </div>
                             }
                         />
@@ -46,6 +57,8 @@ export default () => {
             </table>
 
             <Pagination />
+            
+            <button onClick={() => navigate(`/student/insert`)}>新建</button>
         </div>
     )
 }
