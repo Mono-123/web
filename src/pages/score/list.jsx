@@ -13,7 +13,8 @@ export default () => {
 
     useEffect(() => {
         ScoreAPI.list(limit, offset).then(data => {
-            setData(data)
+            setData(data);
+            if (data.length===0) alert('已经在最后一页');
         })
     }, [limit, offset])
 

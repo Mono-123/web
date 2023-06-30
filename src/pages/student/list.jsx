@@ -14,6 +14,7 @@ export default () => {
     useEffect(() => {
         StudentAPI.list(limit, offset).then(data => {
             setData(data)
+            if (data.length===0) alert('已经在最后一页');
         })
     }, [limit, offset])
 

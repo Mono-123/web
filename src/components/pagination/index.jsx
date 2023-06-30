@@ -17,7 +17,7 @@ export default () => {
             <button onClick={goNextPage}>下一页</button>
 
             <p> 跳转到第<input onChange={(e) => setJump(e.target.value)} />页
-                {/* <button onClick={goPage(jump)} disabled={!jump}>确定</button> */}
+                <button onClick={(e) =>goPage(jump)} disabled={!jump}>确定</button>
             </p>
         </div>
     )
