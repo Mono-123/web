@@ -1,0 +1,16 @@
+.student-form td, .student-form th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.student-form tr:nth-child(even){background-color: #f2f2f2;}
+
+.student-form tr:hover {background-color: #ddd;}
+
+.student-form th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+}

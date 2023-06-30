@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import usePagination from "../../utils/usePagination"
-import ScoreAPI from '../../service/score'
+import StudentAPI from '../../service/student'
 import Detail from './components/detail'
 import Pagination from "../../components/pagination";
 import { useNavigate } from 'react-router-dom'
@@ -12,13 +12,13 @@ export default () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        ScoreAPI.list(limit, offset).then(data => {
+        StudentAPI.list(limit, offset).then(data => {
             setData(data)
         })
     }, [limit, offset])
 
     // useEffect(() => {
-    //     ScoreAPI.listAll().then(length=>{
+    //     StudentAPI.listAll().then(length=>{
     //         setLength(length)
     //         console.log(length)
     //     })
@@ -30,10 +30,10 @@ export default () => {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>姓名</th>
-                        <th>年级</th>
-                        <th>性别</th>
-                        <th>分数</th>
+                        <th>学生学号</th>
+                        <th>语文成绩</th>
+                        <th>数学成绩</th>
+                        <th>英语成绩</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -44,11 +44,11 @@ export default () => {
                             type="table"
                             action={
                                 <div>
-                                    <button onClick={() => navigate(`/student/detail/${d.id}`)}>查看</button>
-                                    <button onClick={() => navigate(`/student/edit/${d.id}`)}>编辑</button>
+                                    <button onClick={() => navigate(`/score/detail/${d.id}`)}>查看</button>
+                                    <button onClick={() => navigate(`/score/edit/${d.id}`)}>编辑</button>
                                     <button onClick={() => {
                                         console.log(d.id);
-                                        navigate(`/student/delete/${d.id}?limit=${limit}&offset=${offset}`)}}>删除</button>
+                                        navigate(`/score/delete/${d.id}?limit=${limit}&offset=${offset}`)}}>删除</button>
                                 </div>
                             }
                         />
@@ -58,7 +58,7 @@ export default () => {
 
             <Pagination />
             
-            <button onClick={() => navigate(`/student/insert`)}>新建</button>
+            <button onClick={() => navigate(`/score/insert`)}>新建</button>
         </div>
     )
 }

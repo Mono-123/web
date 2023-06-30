@@ -10,6 +10,13 @@ import StudentDelete from './pages/student/delete'
 import StudentEdit from './pages/student/edit'
 import StudentInsert from './pages/student/edit/insert'
 
+import Score from './pages/score'
+import ScoreList from './pages/score/list'
+import ScoreId from './pages/score/id'
+import ScoreDelete from './pages/score/delete'
+import ScoreEdit from './pages/score/edit'
+import ScoreInsert from './pages/score/edit/insert'
+
 // 清除现有的 HTML 内容
 document.body.innerHTML = '<div id="app"></div>';
 
@@ -47,6 +54,32 @@ const router = createBrowserRouter([
             {
                 path: "delete/:id?",
                 element: <StudentDelete/>,
+            },
+        ]
+    },
+    {
+        path: "score",
+        element: <Student/>,
+        children: [
+            {
+                path: "",
+                element: <ScoreList/>,
+            },
+            {
+                path: "detail/:id?",
+                element: <ScoreId/>,
+            },
+            {
+                path: "edit/:id?",
+                element: <ScoreEdit/>,
+            },
+            {
+                path: "insert/:id?",
+                element: <ScoreInsert/>,
+            },
+            {
+                path: "delete/:id?",
+                element: <ScoreDelete/>,
             },
         ]
     },
