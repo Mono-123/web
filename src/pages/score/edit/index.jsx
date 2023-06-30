@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import StudentAPI from '../../../service/student'
+import ScoreAPI from '../../../service/score'
 import './style.css'
 
 export default () => {
@@ -10,7 +10,7 @@ export default () => {
 
     useEffect(() => {
         if (!params.id) return
-        StudentAPI.getById(params.id)
+        ScoreAPI.getById(params.id)
             .then(data => {
                 setData(data)
                 setFormData(data)
@@ -21,7 +21,7 @@ export default () => {
     }, [params.id])
 
     const handleSubmit = () => {
-        StudentAPI.updateById(formData)
+        ScoreAPI.updateById(formData)
             .then(data => {
                 alert('更新成功')
             })
@@ -43,38 +43,28 @@ export default () => {
             <h2>Edit {params.id}</h2>
 
             <p>
-                <Link to='/student'>返回列表</Link>
+                <Link to='/score'>返回列表</Link>
             </p>
 
             <form>
                 <div>
-                    <label for="name">姓名</label><br />
-                    <input type="text" name="name" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} /><br />
+                    <label for="studentId">学生学号</label><br />
+                    <input type="number" name="studentId" value={formData.studentId} onChange={e => setFormData({ ...formData, studentId: Number.parseInt(e.target.value) })} /><br />
 
+                    <label for="chinese">语文成绩</label><br />
+                    <input type="number" name="chinese" value={formData.chinese} onChange={e => setFormData({ ...formData, chinese: Number.parseInt(e.target.value) })} /><br />
 
-                    <label for="grade">年级</label><br />
-                    <select name="grade" value={formData.grade} onChange={e => setFormData({ ...formData, grade: Number.parseInt(e.target.value) })}>
-                        {GRADES.map((grade, idx) => idx !== 0 && (
-                            <option key={grade} value={idx - 1}>{grade}</option>
-                        ))}
-                    </select>
-
-
-                    <label for="gender">性别</label><br />
-                    {GENDERS.map((gender, idx) => (
-                        <span key={gender}><input type="radio" checked={idx === formData.gender} onClick={() => setFormData({ ...formData, gender: idx })} /> {gender}</span>
-                    ))}
-                    <br />
-
-
-                    <label for="score">分数</label><br />
-                    <input type="number" name="score" value={formData.score} onChange={e => setFormData({ ...formData, score: Number.parseInt(e.target.value) })} /><br />
+                    <label for="math">数学成绩</label><br />
+                    <input type="number" name="math" value={formData.math} onChange={e => setFormData({ ...formData, math: Number.parseInt(e.target.value) })} /><br />
+                    
+                    <label for="english">英语成绩</label><br />
+                    <input type="number" name="english" value={formData.english} onChange={e => setFormData({ ...formData, english: Number.parseInt(e.target.value) })} /><br />
 
                     {/* <button onClick={() => console.log(formData)} type="button">查看</button> */}
 
                     <button type="button" onClick={() => setFormData(data)}>清空</button>
 
-                    <button type="button" onClick={handleSubmit}>提交</button>
+                    <button type="button" onClick={handleSubmit} disabled={!formData.studentId || !formData.chinese || !formData.math||!formData.english}>提交</button>
                 </div>
             </form>
         </div>

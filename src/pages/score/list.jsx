@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import usePagination from "../../utils/usePagination"
-import StudentAPI from '../../service/student'
+import ScoreAPI from '../../service/score'
 import Detail from './components/detail'
 import Pagination from "../../components/pagination";
 import { useNavigate } from 'react-router-dom'
@@ -12,13 +12,13 @@ export default () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        StudentAPI.list(limit, offset).then(data => {
+        ScoreAPI.list(limit, offset).then(data => {
             setData(data)
         })
     }, [limit, offset])
 
     // useEffect(() => {
-    //     StudentAPI.listAll().then(length=>{
+    //     ScoreAPI.listAll().then(length=>{
     //         setLength(length)
     //         console.log(length)
     //     })

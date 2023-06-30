@@ -26,6 +26,13 @@ export default () => {
                 offset: offset + limit,
             })
         },
+        goPreviousPage : () => {
+            setSearchParams({
+                ...query,
+                limit,
+                offset:Math.max((offset - limit),0),
+            })
+        },
         goPage:(jump)=>{
             setSearchParams({
                 ...query,

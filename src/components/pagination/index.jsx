@@ -3,12 +3,14 @@ import usePagination from "../../utils/usePagination"
 import "./inputStyle.css"
 
 export default () => {
-    const { page, goNextPage, goPage, goFirstPage } = usePagination();
+    const { page, goNextPage, goPage, goPreviousPage,goFirstPage } = usePagination();
     const [jump, setJump] = useState()
 
     return (
         <div>
             <button onClick={goFirstPage}>首页</button>
+
+            <button onClick={goPreviousPage}>上一页</button>
 
             当前第 {page} 页
 

@@ -59,7 +59,7 @@ const router = createBrowserRouter([
     },
     {
         path: "score",
-        element: <Student/>,
+        element: <Score/>,
         children: [
             {
                 path: "",

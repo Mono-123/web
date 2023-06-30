@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import usePagination from "../../utils/usePagination"
-import ScoreAPI from '../../service/score'
+import StudentAPI from '../../service/student'
 import Detail from './components/detail'
 import Pagination from "../../components/pagination";
 import { useNavigate } from 'react-router-dom'
@@ -12,13 +12,13 @@ export default () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        ScoreAPI.list(limit, offset).then(data => {
+        StudentAPI.list(limit, offset).then(data => {
             setData(data)
         })
     }, [limit, offset])
 
     // useEffect(() => {
-    //     ScoreAPI.listAll().then(length=>{
+    //     StudentAPI.listAll().then(length=>{
     //         setLength(length)
     //         console.log(length)
     //     })
@@ -48,7 +48,8 @@ export default () => {
                                     <button onClick={() => navigate(`/student/edit/${d.id}`)}>编辑</button>
                                     <button onClick={() => {
                                         console.log(d.id);
-                                        navigate(`/student/delete/${d.id}?limit=${limit}&offset=${offset}`)}}>删除</button>
+                                        navigate(`/student/delete/${d.id}?limit=${limit}&offset=${offset}`)
+                                    }}>删除</button>
                                 </div>
                             }
                         />
@@ -57,7 +58,7 @@ export default () => {
             </table>
 
             <Pagination />
-            
+
             <button onClick={() => navigate(`/student/insert`)}>新建</button>
         </div>
     )

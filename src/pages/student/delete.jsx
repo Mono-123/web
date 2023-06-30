@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams,useNavigate , useSearchParams } from 'react-router-dom'
-import ScoreAPI from '../../service/score'
+import StudentAPI from '../../service/student'
 
 export default () => {
     const params = useParams()
@@ -14,9 +14,9 @@ export default () => {
     useEffect(() => {
         console.log(params.id);
         if (!params.id) return
-        ScoreAPI.delete(params.id)
+        StudentAPI.delete(params.id)
             .then(result => {
-                setResult("删除成功")
+                setResult("删除了id为"+params.id+"的学生信息")
             })
             .catch(error => {
                 setResult("删除失败")
