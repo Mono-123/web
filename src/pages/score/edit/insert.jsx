@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Score from '../components/detail'
 import ScoreAPI from '../../../service/score'
-import './style.css'
+// import './style.css'
 
 export default () => {
     const params = useParams()

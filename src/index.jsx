@@ -53,6 +53,32 @@ const router = createBrowserRouter([
                     },
                 ]
             },
+            {
+                path: "score",
+                element: <Score/>,
+                children: [
+                    {
+                        path: "",
+                        element: <ScoreList/>,
+                    },
+                    {
+                        path: "detail/:id?",
+                        element: <ScoreId/>,
+                    },
+                    {
+                        path: "edit/:id?",
+                        element: <ScoreEdit/>,
+                    },
+                    {
+                        path: "insert/:id?",
+                        element: <ScoreInsert/>,
+                    },
+                    {
+                        path: "delete/:id?",
+                        element: <ScoreDelete/>,
+                    },
+                ]
+            },
         ]
     },
     {
@@ -60,32 +86,7 @@ const router = createBrowserRouter([
         element: <div>world</div>,
     },
     
-    {
-        path: "score",
-        element: <Score/>,
-        children: [
-            {
-                path: "",
-                element: <ScoreList/>,
-            },
-            {
-                path: "detail/:id?",
-                element: <ScoreId/>,
-            },
-            {
-                path: "edit/:id?",
-                element: <ScoreEdit/>,
-            },
-            {
-                path: "insert/:id?",
-                element: <ScoreInsert/>,
-            },
-            {
-                path: "delete/:id?",
-                element: <ScoreDelete/>,
-            },
-        ]
-    },
+    
 ]);
 
 // 渲染你的 React 组件

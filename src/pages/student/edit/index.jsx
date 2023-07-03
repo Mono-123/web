@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import StudentAPI from '../../../service/student'
-import './style.css'
-import {GENDERS,GRADES} from '../components/detail'
+// import './style.css'
+import { GENDERS, GRADES } from '../components/detail'
+import { Radio, Select, Space } from 'antd';
 
 export default () => {
     const params = useParams()
@@ -29,6 +30,8 @@ export default () => {
             .catch(error => {
                 alert('更新失败')
             })
+
+
     }
 
     if (!params.id) return null;
@@ -60,11 +63,40 @@ export default () => {
                         ))}
                     </select><br />
 
+                    <Select
+                        defaultValue={formData.grade}
+                        style={{width: 120,}}
+                        onChange={e => setFormData({ ...formData, grade: Number.parseInt(e.target.value) })}
+                        options={[
+                            {
+                                value: '0',
+                                label: '一年级',
+                            },
+                            {
+                                value: '1',
+                                label: '二年级',
+                            },
+                            {
+                                value: '2',
+                                label: '三年级',
+                            },
+                            {
+                                value: '3',
+                                label: '四年级',
+                            },
+                        ]}
+                    /><br />
+
 
                     <label for="gender">性别</label><br />
-                    {GENDERS.map((gender, idx) => (
+                    {/* {GENDERS.map((gender, idx) => (
                         <span key={gender}><input type="radio" checked={idx === formData.gender} onClick={() => setFormData({ ...formData, gender: idx })} /> {gender}</span>
-                    ))}
+                    ))} */}
+                    <Radio.Group name="gender" defaultValue={formData.gender} onClick={() => setFormData({ ...formData, gender: Number.parseInt(e.target.value) })}>
+                        <Radio value={1} >男</Radio>
+                        <Radio value={0} >女</Radio>
+                    </Radio.Group>
+
                     <br />
 
 

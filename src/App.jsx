@@ -1,4 +1,4 @@
-import { UserOutlined } from '@ant-design/icons'
+import { UserOutlined,BarChartOutlined } from '@ant-design/icons'
 import { Layout, Menu, Typography } from 'antd';
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom'
 
@@ -27,6 +27,18 @@ export default () => {
                                 title: 'Student',
                                 key: 'student',
                                 onClick: () => navigate('/student')
+                            },
+                        ]}
+                    />
+                    <Menu
+                        defaultSelectedKeys={[pathname.split('/')[1]]}
+                        items={[
+                            {
+                                icon: <BarChartOutlined />,
+                                label: 'Score',
+                                title: 'Score',
+                                key: 'score',
+                                onClick: () => navigate('/score')
                             },
                         ]}
                     />

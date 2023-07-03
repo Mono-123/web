@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Students from '../components/detail'
 import StudentAPI from '../../../service/student'
-import './style.css'
+// import './style.css'
 import {GENDERS,GRADES} from '../components/detail'
 
 export default () => {

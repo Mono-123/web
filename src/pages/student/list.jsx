@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,React } from "react";
 import usePagination from "../../utils/usePagination"
 import StudentAPI from '../../service/student'
 import Detail from './components/detail'
 import Pagination from "../../components/pagination";
 import { useNavigate } from 'react-router-dom'
+import { Button, Space } from 'antd';
 
 export default () => {
     const { limit, offset } = usePagination();
@@ -45,12 +46,12 @@ export default () => {
                             type="table"
                             action={
                                 <div>
-                                    <button onClick={() => navigate(`/student/detail/${d.id}`)}>查看</button>
-                                    <button onClick={() => navigate(`/student/edit/${d.id}`)}>编辑</button>
-                                    <button onClick={() => {
+                                    <Button type="primary" ghost onClick={() => navigate(`/student/detail/${d.id}`)}>查看</Button>
+                                    <Button  onClick={() => navigate(`/student/edit/${d.id}`)}>编辑</Button>
+                                    <Button type="dashed" onClick={() => {
                                         console.log(d.id);
                                         navigate(`/student/delete/${d.id}?limit=${limit}&offset=${offset}`)
-                                    }}>删除</button>
+                                    }}>删除</Button>
                                 </div>
                             }
                         />
