@@ -29,7 +29,7 @@ export default () => {
             <p>
             <button onClick={() => {
                 console.log(params.id,query.limit,query.offset);
-                navigate(`/score/?limit=${query.limit}&offset=${query.offset}`)
+                navigate(`/student/?limit=${query.limit}&offset=${query.offset}`)
             }}>返回之前列表</button>
             </p>
         </div>
