@@ -66,9 +66,9 @@ export default () => {
       key: 'x',
       render: () => 
       <div>
-          <Button type="primary" ghost onClick={() => navigate(`/score/detail/${data.id}`)}>查看</Button>
+          <Button type="primary" ghost onClick={() => navigate(`/score/detail/${data.key}`)}>查看</Button>
           <Button onClick={() => navigate(`/score/edit/${data.id}`)}>编辑</Button>
-          <Button type="dashed" onClick={() => {navigate(`/score/delete/${d.id}?limit=${limit}&offset=${offset}`)}}>删除</Button></div>
+          <Button type="dashed" danger onClick={() => {navigate(`/score/delete/${data.id}?limit=${limit}&offset=${offset}`)}}>删除</Button></div>
     },
     
   ];
@@ -85,19 +85,20 @@ export default () => {
 
   return (
     <div >
+      
+      <Button type="primary" onClick={() => navigate(`/student/insert`)}>新建学生分数信息</Button>
       <Table columns={columns} dataSource={data}
         pagination={{
           hideOnSinglePage: true,
           showQuickJumper: true,
-          defaultCurrent: 2,
+          defaultCurrent: 1,
           total: 100,
           showSizeChanger: true,
-          pageSizeOptions: ["10", "20", "50"],
+          pageSizeOptions: ["5", "10"],
         }} />
+{/* 
+      <Pagination /> */}
 
-      <Pagination />
-
-      <button onClick={() => navigate(`/score/insert`)}>新建</button>
     </div>
   )
 }

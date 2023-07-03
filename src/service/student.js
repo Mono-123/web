@@ -1,10 +1,10 @@
 import { API_SERVER } from ".";
 
 export default {
-    list: (limit = 10, offset = 0) => {
+    list: (limit = 100, offset = 0) => {
         return API_SERVER.get('/student/list', {
             params: {
-                limit, offset
+                limit:100, offset
             }
         })
     },

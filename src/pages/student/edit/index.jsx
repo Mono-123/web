@@ -9,6 +9,7 @@ export default () => {
     const params = useParams()
     const [data, setData] = useState({})
     const [formData, setFormData] = useState({})
+    const [errorMessage, setErrorMessage] = useState('')
 
     const [componentSize, setComponentSize] = useState('default');
     const onFormLayoutChange = ({ size }) => {

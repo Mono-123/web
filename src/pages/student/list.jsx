@@ -19,6 +19,7 @@ export default () => {
       sorter: {
         compare: (a, b) => a.id - b.id,
         multiple: 4,
+        render: (value) => {data.id=value}
       },
     },
     {
@@ -55,9 +56,9 @@ export default () => {
       key: 'x',
       render: () => 
       <div>
-          <Button type="primary" ghost onClick={() => navigate(`/student/detail/${data.id}`)}>查看</Button>
-          <Button onClick={() => navigate(`/student/edit/${data.id}`)}>编辑</Button>
-          <Button type="dashed" onClick={() => {navigate(`/student/delete/${d.id}?limit=${limit}&offset=${offset}`)}}>删除</Button></div>
+          <Button type="primary" ghost onClick={() => {navigate(`/student/detail/${data.id}`);console.log(data.id)}}>查看</Button>
+          <Button onClick={() => {navigate(`/student/edit/${data.id}`);console.log(data)}}>编辑</Button>
+          <Button type="dashed" danger onClick={() => {navigate(`/student/delete/${d.id}?limit=${limit}&offset=${offset}`)}}>删除</Button></div>
     },
     
   ];
@@ -81,19 +82,19 @@ export default () => {
 
     return (
         <div className="student-table">
+        <Button type="primary" onClick={() => navigate(`/student/insert`)}>新建学生信息</Button>
            <Table columns={columns} dataSource={data}
         pagination={{
           hideOnSinglePage: true,
           showQuickJumper: true,
-          defaultCurrent: 2,
+          defaultCurrent: 1,
           total: 100,
           showSizeChanger: true,
-          pageSizeOptions: ["10", "20", "50"],
+          pageSizeOptions: ["5", "10"],
         }} />
 
-            <Pagination />
+            {/* <Pagination /> */}
 
-            <button onClick={() => navigate(`/student/insert`)}>新建</button>
         </div>
     )
 }

@@ -9,6 +9,7 @@ export default () => {
     const params = useParams()
     const [data, setData] = useState({})
     const [formData, setFormData] = useState({})
+    const [errorMessage, setErrorMessage] = useState('')
 
     useEffect(() => {
         if (!params.id) return
