@@ -3,11 +3,13 @@ import { useParams, Link } from 'react-router-dom'
 import Students from '../components/detail'
 import StudentAPI from '../../../service/student'
 // import './style.css'
-import {GENDERS,GRADES} from '../components/detail'
+import { GENDERS, GRADES } from '../components/detail'
+import { Radio, Select, Form, Input, Button } from 'antd';
 
 export default () => {
     const params = useParams()
-    const [data, setData] = useState({})
+    const [data, setData] = useState({...data, gender:1})
+    const [insertData, setInsertData] = useState({})
     const [visiable, setVisiable] = useState(false)
     // const [students, setStudents] = useState()
     // const [id, setId] = useState()
@@ -22,7 +24,7 @@ export default () => {
     const handleSubmit = () => {
         StudentAPI.insert(data)
             .then(data => {
-                setData(data);
+                setInsertData(data);
                 setVisiable(true);
             })
             .catch(error => {
@@ -38,39 +40,55 @@ export default () => {
                 <Link to='/student'>返回列表</Link>
             </p>
 
-            <form onsubmit="return false;">
+            <Form>
                 <div>
-                    <label for="name">姓名</label><br />
-                    <input type="text" name="name" onChange={e => setData({ ...data, name: e.target.value })} /><br />
+                    <Form.Item label="姓名" style={{ width: '25%' }}>
+                        <Input name="name" onChange={e => setData({ ...data, name: e.target.value })} /><br />
+                    </Form.Item>
 
-
-                    <label for="grade">年级</label><br />
+                    {/* <label for="grade">年级</label><br />
                     <select name="grade" onChange={e => setData({ ...data, grade: Number.parseInt(e.target.value) })}>
                         <option disabled selected value>--请选择--</option>
                         {GRADES.map((grade, idx) => idx !== 0 && (
                             <option key={grade} value={idx - 1}>{grade}</option>
                         ))}
-                    </select><br />
+                    </select><br /> */}
 
+                    <Form.Item label="性别" >
+                        <Radio.Group name="gender" defaultValue={"1"} onChange={e => setData({ ...data, gender: e.target.value })}>
+                            <Radio.Button value="1" >男</Radio.Button>
+                            <Radio.Button value="0" >女</Radio.Button>
+                        </Radio.Group>
+                    </Form.Item>
 
-                    <label for="gender">性别</label><br />
+                    <Form.Item label="年级" style={{ width: '25%' }}>
+                        <Select name="grade" placeholder="Select grade" onChange={value => setData({ ...data, grade:value })}>
+                            <Option value="0" >一年级</Option>
+                            <Option value="1" >二年级</Option>
+                            <Option value="2" >三年级</Option>
+                            <Option value="3" >四年级</Option>
+                            <Option value="4" >五年级</Option>
+                            <Option value="5" >六年级</Option>
+                        </Select>
+                    </Form.Item>
+
+                    {/* <label for="gender">性别</label><br />
                     {GENDERS.map((gender, idx) => (
-                        <span key={gender}><input type="radio" name="gender" defaultChecked={idx===0} onClick={() => setData({ ...data, gender: idx })} /> {gender}</span>
+                        <span key={gender}><input type="radio" name="gender" defaultChecked={idx === 0} onClick={() => setData({ ...data, gender: idx })} /> {gender}</span>
                     ))}
-                    <br />
+                    <br /> */}
 
+                    <Form.Item label="分数" style={{ width: '25%' }}>
+                        <Input type="number" name="score" onChange={e => setData({ ...data, score: Number.parseInt(e.target.value) })} /><br />
+                    </Form.Item>
 
-                    <label for="score">分数</label><br />
-                    <input type="number" name="score" onChange={e => setData({ ...data, score: Number.parseInt(e.target.value) })} /><br />
-
-                    <button type="reset">清空</button>
-
-                    <button type="button"  onClick={handleSubmit}  disabled={!data.name || !data.grade || !data.score}>提交</button>
+                    <Button type="reset">清空</Button>
+                    <Button onClick={handleSubmit} disabled={!data.name || !data.grade || !data.score}>提交</Button>
                 </div>
-            </form>
+            </Form>
             {visiable && <div>
-                <p>创建了ID为{data.id}的学生成绩信息</p>
-                <Students {...data} /></div>}
+                <p>创建了ID为{insertData.id}的学生成绩信息</p>
+                <Students {...insertData} /></div>}
         </div>
     )
 

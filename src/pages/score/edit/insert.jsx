@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Score from '../components/detail'
 import ScoreAPI from '../../../service/score'
+import { Input,InputNumber } from 'antd'
+import { UserOutlined,FunctionOutlined,HighlightOutlined,FontColorsOutlined } from '@ant-design/icons'
+
 // import './style.css'
 
 export default () => {
@@ -40,16 +43,21 @@ export default () => {
             <form onsubmit="return false;">
                 <div>
                 <label for="studentId">学生学号</label><br />
-                    <input type="number" name="studentId" onChange={e => setData({ ...data, studentId: Number.parseInt(e.target.value) })} /><br />
+                <label for="studentId">学生学号</label><br />
+                    <Input style={{width: '25%'}} placeholder="default size"  prefix={<UserOutlined />} 
+                    type="number" name="studentId" onChange={e => setData({ ...data, studentId: Number.parseInt(e.target.value) })} /><br />
 
                     <label for="chinese">语文成绩</label><br />
-                    <input type="number" name="chinese" onChange={e => setData({ ...data, chinese: Number.parseInt(e.target.value) })} /><br />
+                    <Input style={{width: '25%'}} addonAfter={"分"} placeholder="default size" prefix={<HighlightOutlined />} 
+                    type="number" name="chinese" onChange={e => setData({ ...data, chinese: Number.parseInt(e.target.value) })} /><br />
 
                     <label for="math">数学成绩</label><br />
-                    <input type="number" name="math" onChange={e => setData({ ...data, math: Number.parseInt(e.target.value) })} /><br />
+                    <Input style={{width: '25%'}} addonAfter={"分"} placeholder="default size" prefix={<FunctionOutlined />} 
+                    type="number" name="math" onChange={e => setData({ ...data, math: Number.parseInt(e.target.value) })} /><br />
                     
                     <label for="english">英语成绩</label><br />
-                    <input type="number" name="english" onChange={e => setData({ ...data, english: Number.parseInt(e.target.value) })} /><br />
+                    <Input style={{width: '25%'}} addonAfter={"分"} placeholder="default size" prefix={<FontColorsOutlined />} 
+                    type="number" name="english" onChange={e => setData({ ...data, english: Number.parseInt(e.target.value) })} /><br />
 
                     <button type="reset">清空</button>
 

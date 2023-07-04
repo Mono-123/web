@@ -11,6 +11,10 @@ export default () => {
     const [formData, setFormData] = useState({})
     const [errorMessage, setErrorMessage] = useState('')
 
+    
+    const [gender, setGender] = useState('')
+    const [grade, setGrade] = useState('')
+
     const [componentSize, setComponentSize] = useState('default');
     const onFormLayoutChange = ({ size }) => {
         setComponentSize(size);
@@ -20,8 +24,11 @@ export default () => {
         if (!params.id) return
         StudentAPI.getById(params.id)
             .then(data => {
-                setData(data)
-                setFormData(data)
+                setData(data);
+                setFormData(data);
+                // setGender(data.gender);
+                // setGrade(data.grade);
+                console.log('aaaaa',gender,typeof(data.gender),typeof(gender));
             })
             .catch(error => {
                 setErrorMessage(error.message)
@@ -76,17 +83,26 @@ export default () => {
                     <Form.Item label="姓名">
                         <Input name="name" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} />
                     </Form.Item>
-
+                    {/* 
                     <label for="grade">年级</label><br />
                     <select name="grade" value={formData.grade} onChange={e => setFormData({ ...formData, grade: Number.parseInt(e.target.value) })}>
                         {GRADES.map((grade, idx) => idx !== 0 && (
                             <option key={grade} value={idx - 1}>{grade}</option>
                         ))}
-                    </select><br />
+                    </select><br /> */}
 
-                    <Select
+
+                    <Form.Item label="性别" >
+                        <Radio.Group name="gender" alue={gender} onChange={e => setFormData({ ...formData, gender: Number.parseInt(e.target.value) })}>
+                            <Radio.Button value="1" >男</Radio.Button>
+                            <Radio.Button value="0" >女</Radio.Button>
+                        </Radio.Group>
+                    </Form.Item>
+
+                    {/* <Select
                         defaultValue={formData.grade}
-                        style={{ width: 120, }}
+                        style={{ width: '20%' }}
+                        value={formData.grade}
                         onChange={e => setFormData({ ...formData, grade: Number.parseInt(e.target.value) })}
                         options={[
                             {
@@ -106,28 +122,28 @@ export default () => {
                                 label: '四年级',
                             },
                         ]}
-                    /><br />
-                    <Form.Item label="年级">
-                        <Select defaultValue={formData.grade} onChange={e => setFormData({ ...formData, grade: Number.parseInt(e.target.value) })}>
-                            <Select.Option value="0">一年级</Select.Option>
-                            <Select.Option value="1">二年级</Select.Option>
-                            <Select.Option value="2">三年级</Select.Option>
-                            <Select.Option value="3">四年级</Select.Option>
-                            <Select.Option value="4">五年级</Select.Option>
-                            <Select.Option value="5">一年级</Select.Option>
+                    /> */}
+
+                    <Form.Item label="年级" >
+                        <Select name="grade" value={grade} onChange={value => setFormData({ ...data, grade: value })}>
+                            <Select.Option value="0" >一年级</Select.Option>
+                            <Select.Option value="1" >二年级</Select.Option>
+                            <Select.Option value="2" >三年级</Select.Option>
+                            <Select.Option value="3" >四年级</Select.Option>
+                            <Select.Option value="4" >五年级</Select.Option>
+                            <Select.Option value="5" >六年级</Select.Option>
                         </Select>
                     </Form.Item>
 
-                    <label for="gender">性别</label><br />
-                    {/* {GENDERS.map((gender, idx) => (
+                    {/* <label for="gender">性别</label><br />
+                    {GENDERS.map((gender, idx) => (
                         <span key={gender}><input type="radio" checked={idx === formData.gender} onClick={() => setFormData({ ...formData, gender: idx })} /> {gender}</span>
                     ))} */}
-                    <Radio.Group name="gender" defaultValue={formData.gender} onClick={() => setFormData({ ...formData, gender: Number.parseInt(e.target.value) })}>
+                    {/* <Radio.Group name="gender" defaultValue={formData.gender} onClick={() => setFormData({ ...formData, gender: Number.parseInt(e.target.value) })}>
                         <Radio value={1} >男</Radio>
                         <Radio value={0} >女</Radio>
-                    </Radio.Group>
+                    </Radio.Group> */}
 
-                    <br />
 
                     <Form.Item label="分数">
                         <Input type="number" name="score" value={formData.score} onChange={e => setFormData({ ...formData, score: Number.parseInt(e.target.value) })} />

@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import usePagination from "../../utils/usePagination"
 import ScoreAPI from '../../service/score'
 import Detail from './components/detail'
 import pagiNation from "../../components/pagination";
 import { useNavigate } from 'react-router-dom'
-import { Table ,Pagination,Button} from 'antd';
+import { Table ,Pagination,Button,Form} from 'antd';
+import useFormInstance from "antd/es/form/hooks/useFormInstance";
 
 
 
@@ -18,12 +19,16 @@ export default () => {
   const [data, setData] = useState([])
   const navigate = useNavigate();
 
+  // const formRef = useRef<useFormInstance>();
+  // const values = await form.validateFields()
+
   const onChange = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
   };
 
   const columns = [
     {
+      name:'id',
       title: 'id',
       dataIndex: 'id',
       sorter: {
@@ -66,7 +71,9 @@ export default () => {
       key: 'x',
       render: () => 
       <div>
-          <Button type="primary" ghost onClick={() => navigate(`/score/detail/${data.key}`)}>查看</Button>
+          <Button type="primary" ghost onClick={(selectedRowKeys) => {
+            console.log('index:',selectedRowKeys);
+            navigate(`/score/detail/${(Number.parseInt(selectedRowKeys))}`)}}>查看</Button>
           <Button onClick={() => navigate(`/score/edit/${data.id}`)}>编辑</Button>
           <Button type="dashed" danger onClick={() => {navigate(`/score/delete/${data.id}?limit=${limit}&offset=${offset}`)}}>删除</Button></div>
     },
@@ -86,7 +93,8 @@ export default () => {
   return (
     <div >
       
-      <Button type="primary" onClick={() => navigate(`/student/insert`)}>新建学生分数信息</Button>
+      <Button type="primary" onClick={() => navigate(`/score/insert`)}>新建学生分数信息</Button>
+      <Form component={false}>
       <Table columns={columns} dataSource={data}
         pagination={{
           hideOnSinglePage: true,
@@ -96,6 +104,7 @@ export default () => {
           showSizeChanger: true,
           pageSizeOptions: ["5", "10"],
         }} />
+        </Form>
 {/* 
       <Pagination /> */}
 
