@@ -28,11 +28,6 @@ export default () => {
                                 key: 'student',
                                 onClick: () => navigate('/student')
                             },
-                        ]}
-                    />
-                    <Menu
-                        defaultSelectedKeys={[pathname.split('/')[1]]}
-                        items={[
                             {
                                 icon: <BarChartOutlined />,
                                 label: 'Score',
@@ -43,9 +38,8 @@ export default () => {
                         ]}
                     />
                 </Layout.Sider>
-                <Layout.Content style={{ padding: '10px 20px' }}>
+                <Layout.Content style={{ padding: '10px 20px', overflow:'auto'}}>
                     {isHomePage && <Typography.Title>欢迎</Typography.Title>}
-
                     <Outlet />
                 </Layout.Content>
             </Layout>

@@ -3,22 +3,32 @@ import { useParams, Link } from 'react-router-dom'
 import StudentAPI from '../../../service/student'
 // import './style.css'
 import { GENDERS, GRADES } from '../components/detail'
-import { Radio, Select, Form, Input } from 'antd';
+import { Radio, Select, Form, Input ,Button, message} from 'antd';
 
 export default () => {
     const params = useParams()
-    const [data, setData] = useState({})
-    const [formData, setFormData] = useState({})
+    const [data, setData] = useState()
+    const [formData, setFormData] = useState()
     const [errorMessage, setErrorMessage] = useState('')
-
-    
-    const [gender, setGender] = useState('')
-    const [grade, setGrade] = useState('')
+    const [messageApi, contextHolder] = message.useMessage();
 
     const [componentSize, setComponentSize] = useState('default');
     const onFormLayoutChange = ({ size }) => {
         setComponentSize(size);
     };
+    const success = () => {
+        messageApi.open({
+            type: 'success',
+            content: '更新成功',
+        });
+    };
+    const error = () => {
+        messageApi.open({
+            type: 'error',
+            content: '更新失败',
+        });
+    };
+
 
     useEffect(() => {
         if (!params.id) return
@@ -26,9 +36,6 @@ export default () => {
             .then(data => {
                 setData(data);
                 setFormData(data);
-                // setGender(data.gender);
-                // setGrade(data.grade);
-                console.log('aaaaa',gender,typeof(data.gender),typeof(gender));
             })
             .catch(error => {
                 setErrorMessage(error.message)
@@ -37,14 +44,8 @@ export default () => {
 
     const handleSubmit = () => {
         StudentAPI.updateById(formData)
-            .then(data => {
-                alert('更新成功')
-            })
-            .catch(error => {
-                alert('更新失败')
-            })
-
-
+            .then(() =>success())
+            .catch(() => error())
     }
 
     if (!params.id) return null;
@@ -58,6 +59,8 @@ export default () => {
     return (
         <div className="student-table">
             <h2>Edit {params.id}</h2>
+
+            {contextHolder}
 
             <p>
                 <Link to='/student'>返回列表</Link>
@@ -93,45 +96,30 @@ export default () => {
 
 
                     <Form.Item label="性别" >
-                        <Radio.Group name="gender" alue={gender} onChange={e => setFormData({ ...formData, gender: Number.parseInt(e.target.value) })}>
-                            <Radio.Button value="1" >男</Radio.Button>
-                            <Radio.Button value="0" >女</Radio.Button>
+                        <Radio.Group name="gender"  value={formData.gender} onChange={e => setFormData({ ...formData, gender: Number.parseInt(e.target.value) })}>
+                            <Radio.Button value={1} >男</Radio.Button>
+                            <Radio.Button value={0} >女</Radio.Button>
                         </Radio.Group>
                     </Form.Item>
 
-                    {/* <Select
-                        defaultValue={formData.grade}
-                        style={{ width: '20%' }}
-                        value={formData.grade}
-                        onChange={e => setFormData({ ...formData, grade: Number.parseInt(e.target.value) })}
-                        options={[
-                            {
-                                value: '0',
-                                label: '一年级',
-                            },
-                            {
-                                value: '1',
-                                label: '二年级',
-                            },
-                            {
-                                value: '2',
-                                label: '三年级',
-                            },
-                            {
-                                value: '3',
-                                label: '四年级',
-                            },
-                        ]}
-                    /> */}
 
                     <Form.Item label="年级" >
-                        <Select name="grade" value={grade} onChange={value => setFormData({ ...data, grade: value })}>
-                            <Select.Option value="0" >一年级</Select.Option>
-                            <Select.Option value="1" >二年级</Select.Option>
-                            <Select.Option value="2" >三年级</Select.Option>
-                            <Select.Option value="3" >四年级</Select.Option>
-                            <Select.Option value="4" >五年级</Select.Option>
-                            <Select.Option value="5" >六年级</Select.Option>
+                        <Select name="grade" value={formData.grade} onChange={value => setFormData({ ...formData, grade: value })}
+                        options={[
+                            { value: 0, label: '一年级'},
+                            { value: 1, label: '二年级'},
+                            { value: 2, label: '三年级'},
+                            { value: 3, label: '四年级'},
+                            { value: 4, label: '五年级'},
+                            { value: 5, label: '六年级'},
+                          ]}
+                        >
+                        {/* <Select.Option value={0} >一年级</Select.Option>
+                        <Select.Option value={1} >二年级</Select.Option>
+                        <Select.Option value={2} >三年级</Select.Option>
+                        <Select.Option value={3} >四年级</Select.Option>
+                        <Select.Option value={4} >五年级</Select.Option>
+                        <Select.Option value={5} >六年级</Select.Option> */}
                         </Select>
                     </Form.Item>
 
@@ -151,9 +139,16 @@ export default () => {
 
                     {/* <button onClick={() => console.log(formData)} type="button">查看</button> */}
 
-                    <button type="button" onClick={() => setFormData(data)}>清空</button>
+                    <Button onClick={() => setFormData(data)}>清空</Button>
 
-                    <button type="button" onClick={handleSubmit}>提交</button>
+                    <Button onClick={() => {
+                        if (!formData.name) message.warning('请输入学生姓名', 2.5);
+                        else if (!formData.gender) message.warning('请输入学生性别', 2.5);
+                        else if (!formData.grade) message.warning('请输入学生年级', 2.5);
+                        else if (!formData.score) message.warning('请输入学生分数', 2.5);
+                        else handleSubmit();
+                    }}>提交</Button>
+
                 </div>
             </Form>
         </div>

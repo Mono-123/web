@@ -54,11 +54,11 @@ export default () => {
       title: 'Action',
       dataIndex: '',
       key: 'x',
-      render: () => 
+      render: (text,record) => 
       <div>
-          <Button type="primary" ghost onClick={() => {navigate(`/student/detail/${data.id}`);console.log(data.id)}}>查看</Button>
-          <Button onClick={() => {navigate(`/student/edit/${data.id}`);console.log(data)}}>编辑</Button>
-          <Button type="dashed" danger onClick={() => {navigate(`/student/delete/${d.id}?limit=${limit}&offset=${offset}`)}}>删除</Button></div>
+          <Button type="primary" ghost onClick={() => {navigate(`/student/detail/${record.id}`)}}>查看</Button>
+          <Button onClick={() => {navigate(`/student/edit/${record.id}`);console.log(data)}}>编辑</Button>
+          <Button type="dashed" danger onClick={() => {navigate(`/student/delete/${record.id}?limit=${limit}&offset=${offset}`)}}>删除</Button></div>
     },
     
   ];

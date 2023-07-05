@@ -4,11 +4,11 @@ import Students from '../components/detail'
 import StudentAPI from '../../../service/student'
 // import './style.css'
 import { GENDERS, GRADES } from '../components/detail'
-import { Radio, Select, Form, Input, Button } from 'antd';
+import { Radio, Select, Form, Input, Button, message } from 'antd';
 
 export default () => {
     const params = useParams()
-    const [data, setData] = useState({...data, gender:1})
+    const [data, setData] = useState({ ...data, gender: 1 })
     const [insertData, setInsertData] = useState({})
     const [visiable, setVisiable] = useState(false)
     // const [students, setStudents] = useState()
@@ -20,20 +20,33 @@ export default () => {
     // const gender = params.gender
     // const grade = params.grade
     // const score = params.score
+    const [messageApi, contextHolder] = message.useMessage();
+    const success = () => {
+        messageApi.open({
+            type: 'success',
+            content: '更新成功',
+        });
+    };
+    const error = () => {
+        messageApi.open({
+            type: 'error',
+            content: '更新失败',
+        });
+    };
+
 
     const handleSubmit = () => {
         StudentAPI.insert(data)
             .then(data => {
                 setInsertData(data);
                 setVisiable(true);
+                success()
             })
-            .catch(error => {
-                alert('新建失败' + error)
-            })
+            .catch(error => error())
     }
 
     return (
-        <div className="student-table">
+        <div className="student-table" style={{ overflow: 'auto' }}>
             <h2>insert</h2>
 
             <p>
@@ -62,7 +75,7 @@ export default () => {
                     </Form.Item>
 
                     <Form.Item label="年级" style={{ width: '25%' }}>
-                        <Select name="grade" placeholder="Select grade" onChange={value => setData({ ...data, grade:value })}>
+                        <Select name="grade" placeholder="Select grade" onChange={value => setData({ ...data, grade: value })}>
                             <Option value="0" >一年级</Option>
                             <Option value="1" >二年级</Option>
                             <Option value="2" >三年级</Option>
@@ -83,7 +96,12 @@ export default () => {
                     </Form.Item>
 
                     <Button type="reset">清空</Button>
-                    <Button onClick={handleSubmit} disabled={!data.name || !data.grade || !data.score}>提交</Button>
+                    <Button onClick={() => {
+                        if (!data.name) message.warning('请输入学生姓名', 2.5);
+                        else if (!data.grade) message.warning('请输入学生年级', 2.5);
+                        else if (!data.score) message.warning('请输入学生分数', 2.5);
+                        else handleSubmit();
+                    }}>提交</Button>
                 </div>
             </Form>
             {visiable && <div>
