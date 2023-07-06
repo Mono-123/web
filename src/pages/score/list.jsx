@@ -94,8 +94,8 @@ export default () => {
       
       {contextHolder}
 
-      <Button onClick={() => navigate(`/SCORE/insert`)}>新建学生分数信息</Button>
-      
+      <Button onClick={() => navigate(`/SCORE/insert`)}>新建学生分数信息</Button><br/>
+
       <Button onClick={() => {
        if (desc === 0&&order==='id') setDesc(1)
        else if(desc===1||order==='id') setDesc(0)

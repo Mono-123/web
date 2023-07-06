@@ -1,9 +1,9 @@
-import { useEffect, useState, React} from "react";
+import { useEffect, useState, React } from "react";
 import usePagination from "../../utils/usePagination"
 import StudentAPI from '../../service/student'
 import { GENDERS, GRADES } from './components/detail'
 import Pagination from "../../components/pagination";
-import { useNavigate,Link  } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { Table, Button, Input, message, Select, Form, Radio, InputNumber } from 'antd';
 
 export default () => {
@@ -130,8 +130,13 @@ export default () => {
       <h4>单项查询</h4>
 
       <div><p>请选择需要查找的项目
-        <Select style={{ width: '25%' }} label="请选择需要查找的项目" name="condition" placeholder="-请选择-" 
-        onChange={value => (console.log(value), setCondition(value))}>
+        <Select style={{ width: '25%' }} label="请选择需要查找的项目" name="condition" placeholder="-请选择-"
+          onChange={value => {
+            console.log(value);
+            setCondition(value);
+            if (value === 'gender') message.info('如果是男生请输入“1”，如果是女生请输入“0”')
+            if (value === 'grade') message.info('请输入年级对应的数字,范围是“1-6”')
+          }}>
           <Option value="name">学生姓名</Option>
           <Option value="gender">性别</Option>
           <Option value="grade">年级</Option>
@@ -143,9 +148,14 @@ export default () => {
       <div><p>请输入查找的具体内容
         <Input style={{ width: '25%' }} onChange={e => setQuery(e.target.value)} />
         <Button type="primary" onClick={() => {
-          console.log(condition, query);
-          if (!condition) message.warning('请选择查询项', 2.5);
+          console.log(condition, query,typeof(query),query !== '0',(condition === 'gender') && (query !== '0'|| query !== '1'));
+          if (!condition) message.warning('请选择需要查询的项目', 2.5);
           else if (!query) message.warning('请输入需要查询的具体内容', 2.5);
+          else if (condition === 'gender' && query !== '0'&&query !== '1') message.warning('请正确输入性别信息，如果是男生请输入“1”，如果是女生请输入“0”', 2.5);
+          else if
+            (condition === 'grade' && query !== '1' && query !== '2' && query !== '3' && query !== '4' && query !== '5' && query !== '6') {
+            message.warning('请正确输入年级对应的数字,范围是“1-6”', 2.5);
+          }
           else listCondition(condition, query)
         }}>查询</Button>
       </p>
