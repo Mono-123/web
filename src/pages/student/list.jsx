@@ -68,7 +68,7 @@ export default () => {
   ];
 
   useEffect(() => {
-    StudentAPI.list(order, desc, limit, offset)
+    StudentAPI.list(order,desc, limit, offset)
       .then(data => {
         data.map(data => (
           { ...data },
@@ -79,31 +79,40 @@ export default () => {
         })
         setFormData(data)
       })
-  }, [limit, offset, order, desc])
+  }, [limit, offset, order,desc])
 
   return (
     <div className="student-table">
 
       {contextHolder}
       <Button onClick={() => navigate(`/student/insert`)}>新建学生信息</Button>
+      
+      <Button onClick={() => navigate(`/student/query`)}>查询学生信息</Button>
       <br />
+
       <Button onClick={() => {
-        if (desc === 0&&order==='chinese') setDesc(1)
-        else if(desc===1&&order==='chinese') setDesc(0)
-        setOrder('chinese'); 
-        }}>按语文成绩排序</Button>
+       if (desc === 0&&order==='id') setDesc(1)
+       else if(desc===1||order==='id') setDesc(0)
+       setOrder('id'); 
+       }}>按ID排序</Button>
+
+      <Button onClick={() => {
+        if (desc === 0&&order==='gender') setDesc(1)
+        else if(desc===1||order==='gender') setDesc(0)
+        setOrder('gender'); 
+        }}>按性别排序</Button>
 
          <Button onClick={() => {
-        if (desc === 0&&order==='math') setDesc(1)
-        else if(desc===1&&order==='math') setDesc(0)
-        setOrder('math'); 
-        }}>按数学成绩排序</Button>
+        if (desc === 0&&order==='grade') setDesc(1)
+        else if(desc===1||order==='grade') setDesc(0)
+        setOrder('grade'); 
+        }}>按年级排序</Button>
 
         <Button onClick={() => {
-       if (desc === 0&&order==='english') setDesc(1)
-       else if(desc===1&&order==='english') setDesc(0)
-       setOrder('english'); 
-       }}>按英语成绩排序</Button>
+       if (desc === 0&&order==='score') setDesc(1)
+       else if(desc===1||order==='score') setDesc(0)
+       setOrder('score'); 
+       }}>按分数排序</Button>
 
       <Table columns={columns} dataSource={formData}
         pagination={{

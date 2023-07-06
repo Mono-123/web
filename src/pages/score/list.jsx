@@ -14,12 +14,10 @@ export default () => {
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
 
+  const [order, setOrder] = useState()
+  const [desc, setDesc] = useState(0)
   // const formRef = useRef<useFormInstance>();
   // const values = await form.validateFields()
-
-  const onChange = (pagination, filters, sorter, extra) => {
-    console.log('params', pagination, filters, sorter, extra);
-  };
 
   const columns = [
     {
@@ -81,7 +79,7 @@ export default () => {
   ];
 
   useEffect(() => {
-    ScoreAPI.list(limit, offset).then(data => {
+    ScoreAPI.list(order, desc,limit, offset).then(data => {
       data.map(data => (
         { ...data },
         data.key = data.id));
@@ -89,14 +87,40 @@ export default () => {
       
       console.log(data, data[1].key);
     })
-  }, [limit, offset])
+  }, [limit, offset, order, desc])
 
   return (
     <div >
       
       {contextHolder}
 
-      <Button type="primary" onClick={() => navigate(`/SCORE/insert`)}>新建学生分数信息</Button>
+      <Button onClick={() => navigate(`/SCORE/insert`)}>新建学生分数信息</Button>
+      
+      <Button onClick={() => {
+       if (desc === 0&&order==='id') setDesc(1)
+       else if(desc===1||order==='id') setDesc(0)
+       setOrder('id'); 
+       }}>按ID排序</Button>
+
+      <Button onClick={() => {
+        if (desc === 0&&order==='chinese') setDesc(1)
+        else if(desc===1||order==='chinese') setDesc(0)
+        setOrder('chinese'); 
+        }}>按语文成绩排序</Button>
+
+         <Button onClick={() => {
+        if (desc === 0&&order==='math') setDesc(1)
+        else if(desc===1||order!=='math') setDesc(0)
+        setOrder('math'); 
+        }}>按数学成绩排序</Button>
+
+        <Button onClick={() => {
+       if (desc === 0&&order==='english') setDesc(1)
+       else if(desc===1||order==='english') setDesc(0)
+       setOrder('english'); 
+       }}>按英语成绩排序</Button><br/>
+
+
       请输入需要查找的学生ID
       <InputNumber onChange={e => setId(e)}/>
       <Button type="primary" onClick={() => {
