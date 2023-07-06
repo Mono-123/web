@@ -1,10 +1,10 @@
 import { API_SERVER } from ".";
 
 export default {
-    list: (limit = 100, offset = 0) => {
+    list: (limit = 10, offset = 0) => {
         return API_SERVER.get('/score/list', {
             params: {
-                limit:100, offset
+                limit, offset
             }
         })
     },

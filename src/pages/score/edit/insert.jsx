@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import Score from '../components/detail'
 import ScoreAPI from '../../../service/score'
-import { Input, InputNumber, message } from 'antd'
+import { InputNumber, message, Form } from 'antd'
 import { UserOutlined, FunctionOutlined, HighlightOutlined, FontColorsOutlined } from '@ant-design/icons'
 
 // import './style.css'
@@ -12,15 +12,17 @@ export default () => {
     const [data, setData] = useState({})
     const [visiable, setVisiable] = useState(false)
     const [messageApi, contextHolder] = message.useMessage();
-    // const [students, setStudents] = useState()
-    // const [id, setId] = useState()
-    // const [errorMessage, setErrorMessage] = useState('')
-    // const url = '/api/score'
 
-    // const name = params.name
-    // const gender = params.gender
-    // const grade = params.grade
-    // const score = params.score
+    const onchange = (record, value) => {
+        if (record === 'studentId') setData({ ...data, studentId: value });
+        else if (record === 'chinese') setData({ ...data, chinese: value });
+        else if (record === 'math') setData({ ...data, math: value });
+        else if (record === 'english') setData({ ...data, english: value });
+    }
+
+    // const onchange = (record, value) => {
+    //     setData({ ...data, record:value});
+    // }
 
     const success = () => {
         messageApi.open({
@@ -42,9 +44,7 @@ export default () => {
                 setVisiable(true);
                 success()
             })
-            .catch(error => {
-                error()
-            })
+            .catch(() => error())
     }
 
     return (
@@ -56,24 +56,23 @@ export default () => {
                 <Link to='/score'>返回列表</Link>
             </p>
 
-            <form onsubmit="return false;">
+            <Form style={{ width: '25%' }} placeholder="default size">
                 <div>
-                    <label for="studentId">学生学号</label><br />
-                    <label for="studentId">学生学号</label><br />
-                    <Input style={{ width: '25%' }} placeholder="default size" prefix={<UserOutlined />}
-                        type="number" name="studentId" onChange={e => setData({ ...data, studentId: Number.parseInt(e.target.value) })} /><br />
+                    <Form.Item label="学生学号">
+                        <InputNumber prefix={<UserOutlined />} onChange={(e)=>onchange('studentId',e)} /><br />
+                    </Form.Item>
 
-                    <label for="chinese">语文成绩</label><br />
-                    <Input style={{ width: '25%' }} addonAfter={"分"} placeholder="default size" prefix={<HighlightOutlined />}
-                        type="number" name="chinese" onChange={e => setData({ ...data, chinese: Number.parseInt(e.target.value) })} /><br />
+                    <Form.Item label="语文成绩">
+                        <InputNumber addonAfter={"分"} prefix={<HighlightOutlined />} onChange={(e)=>onchange('chinese',e)} /><br />
+                    </Form.Item>
 
-                    <label for="math">数学成绩</label><br />
-                    <Input style={{ width: '25%' }} addonAfter={"分"} placeholder="default size" prefix={<FunctionOutlined />}
-                        type="number" name="math" onChange={e => setData({ ...data, math: Number.parseInt(e.target.value) })} /><br />
+                    <Form.Item label="数学成绩">
+                        <InputNumber addonAfter={"分"} prefix={<FunctionOutlined />} onChange={(e)=>onchange('math',e)} /><br />
+                    </Form.Item>
 
-                    <label for="english">英语成绩</label><br />
-                    <Input style={{ width: '25%' }} addonAfter={"分"} placeholder="default size" prefix={<FontColorsOutlined />}
-                        type="number" name="english" onChange={e => setData({ ...data, english: Number.parseInt(e.target.value) })} /><br />
+                    <Form.Item label="英语成绩">
+                        <InputNumber addonAfter={"分"} prefix={<FontColorsOutlined />} onChange={(e)=>onchange('english',e)} /><br />
+                    </Form.Item>
 
                     <button type="reset">清空</button>
 
@@ -85,7 +84,7 @@ export default () => {
                         else handleSubmit();
                     }}>提交</button>
                 </div>
-            </form>
+            </Form>
             {visiable && <div>
                 <p>创建了ID为{data.id}的学生成绩信息</p>
                 <Score {...data} /></div>}

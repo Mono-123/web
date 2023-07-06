@@ -6,12 +6,16 @@ export default () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const query = Object.fromEntries(searchParams)
 
-    const limit = Number.parseInt(query.limit) || 10
+    const limit = Number.parseInt(query.limit) || 100
     const offset = Number.parseInt(query.offset) || 0
+    const order = query.order
+    const desc = Number.parseInt(query.desc) || 0
 
     return {
         limit,
         offset,
+        order,
+        desc,
         goPage:(jump)=>{
             setSearchParams({
                 ...query,

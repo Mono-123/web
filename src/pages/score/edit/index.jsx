@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import ScoreAPI from '../../../service/score'
 // import './style.css'
 import { UserOutlined, FunctionOutlined, HighlightOutlined, FontColorsOutlined } from '@ant-design/icons';
-import { Input, InputNumber, message } from 'antd';
+import { Input, Button, message, Form } from 'antd';
 
 export default () => {
     const params = useParams()
@@ -30,16 +30,13 @@ export default () => {
             content: '请输入完整数据',
         });
     };
-    // return (
-    //     <>
-    //         {contextHolder}
-    //         <Space>
-    //             <Button onClick={success}>Success</Button>
-    //             <Button onClick={error}>Error</Button>
-    //             <Button onClick={warning}>Warning</Button>
-    //         </Space>
-    //     </>
-    // );
+
+    const onchange = (record, e) => {
+        if (record === 'studentId') setFormData({ ...formData, studentId: Number.parseInt(e.target.value) });
+        if (record === 'chinese') setFormData({ ...formData, chinese: Number.parseInt(e.target.value) });
+        if (record === 'math') setFormData({ ...formData, math: Number.parseInt(e.target.value) });
+        if (record === 'english') setFormData({ ...formData, english: Number.parseInt(e.target.value) });
+    }
 
     useEffect(() => {
         if (!params.id) return
@@ -55,17 +52,17 @@ export default () => {
 
     const handleSubmit = () => {
         ScoreAPI.updateById(formData)
-            .then(() =>success())
+            .then(() => success())
             .catch(() => error())
     }
 
-    // if (!params.id) return null;
+    if (!params.id) return null;
 
-    // if (!formData) {
-    //     return (
-    //         <div>{errorMessage || 'Not found'}</div>
-    //     )
-    // }
+    if (!formData) {
+        return (
+            <div>{errorMessage || 'Not found'}</div>
+        )
+    }
 
 
     return (
@@ -79,29 +76,40 @@ export default () => {
                 <Link to='/score'>返回列表</Link>
             </p>
 
-            <form>
+            <Form style={{ width: '25%' }} placeholder="default size">
                 <div>
-                    <label for="studentId">学生学号</label><br />
-                    <InputNumber style={{ width: '25%' }} placeholder="default size" prefix={<UserOutlined />} type="number" name="studentId" value={formData.studentId}
-                        onChange={e => { setFormData({ ...formData, studentId: Number.parseInt(e) }) }} /><br />
 
-                    <label for="chinese">语文成绩</label><br />
-                    <Input style={{ width: '25%' }} addonAfter={"分"} placeholder="default size" prefix={<HighlightOutlined />} type="number" name="chinese" value={formData.chinese} onChange={e => setFormData({ ...formData, chinese: Number.parseInt(e.target.value) })} /><br />
+                    <Form.Item label="学生学号">
+                        <Input  prefix={<UserOutlined />} name="studentId"
+                            value={formData.studentId} onChange={(e)=>onchange('studentId', e)} /><br />
+                    </Form.Item>
 
-                    <label for="math">数学成绩</label><br />
-                    <Input style={{ width: '25%' }} addonAfter={"分"} placeholder="default size" prefix={<FunctionOutlined />} type="number" name="math" value={formData.math} onChange={e => setFormData({ ...formData, math: Number.parseInt(e.target.value) })} /><br />
+                    <Form.Item label="语文成绩">
+                        <Input addonAfter={"分"}  prefix={<HighlightOutlined />} name="chinese"
+                            value={formData.chinese} onChange={(e)=>onchange('chinese', e)} /><br />
+                    </Form.Item>
 
-                    <label for="english">英语成绩</label><br />
-                    <Input style={{ width: '25%' }} addonAfter={"分"} placeholder="default size" prefix={<FontColorsOutlined />} type="number" name="english" value={formData.english} onChange={e => setFormData({ ...formData, english: Number.parseInt(e.target.value) })} /><br />
+                    <Form.Item label="数学成绩">
+                        <Input addonAfter={"分"}  prefix={<FunctionOutlined />} name="math"
+                            value={formData.math} onChange={(e)=>onchange('math', e)} /><br />
+                    </Form.Item>
 
-                    {/* <button onClick={() => console.log(formData)} type="button">查看</button> */}
+                    <Form.Item label="英语成绩">
+                        <Input addonAfter={"分"}  prefix={<FontColorsOutlined />} name="english"
+                            value={formData.english} onChange={(e)=>onchange('english', e)} /><br />
+                    </Form.Item>
 
-                    <button type="button" onClick={() => setFormData(data)}>清空</button>
+                    <Button onClick={() => setFormData(data)}>清空</Button>
 
-                    <button type="button" onClick={() =>{handleSubmit();
-    if(!formData.studentId || !formData.chinese || !formData.math || !formData.english){warning()}}}>提交</button>
+                    <Button onClick={() => {
+                        if (!formData.studentId) message.warning('请输入学生学号', 2.5);
+                        else if (!formData.chinese) message.warning('请输入学生语文成绩', 2.5);
+                        else if (!formData.math) message.warning('请输入学生数学成绩', 2.5);
+                        else if (!formData.english) message.warning('请输入学生英语成绩', 2.5);
+                        else handleSubmit();
+                    }}>提交</Button>
                 </div>
-            </form>
+            </Form>
         </div>
     )
 }

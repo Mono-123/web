@@ -5,7 +5,7 @@ export const GENDERS = [
 ]
 
 export const GRADES = [
-    '', "一", "二", "三", "四", "五", "六"
+    '', "一年级", "二年级", "三年级", "四年级", "五年级", "六年级"
 ]
 
 export default (props) => {

@@ -28,7 +28,11 @@ export default () => {
     }, [params.id])
 
     if (!params.id) return null;
-
+    if (!data) {
+        return (
+            <div>{errorMessage || 'Not found'}</div>
+        )
+    }
 
     return (
         <div>

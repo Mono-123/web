@@ -9,6 +9,7 @@ import StudentId from './pages/student/id'
 import StudentDelete from './pages/student/delete'
 import StudentEdit from './pages/student/edit'
 import StudentInsert from './pages/student/edit/insert'
+import StudentQuery from './pages/student/query'
 
 import Score from './pages/score'
 import ScoreList from './pages/score/list'
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
                     {
                         path: "",
                         element: <StudentList/>,
+                    },
+                    {
+                        path: "query",
+                        element: <StudentQuery/>,
                     },
                     {
                         path: "detail/:id?",

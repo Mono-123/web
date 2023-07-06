@@ -4,20 +4,15 @@ import ScoreAPI from '../../service/score'
 import Detail from './components/detail'
 import pagiNation from "../../components/pagination";
 import { useNavigate } from 'react-router-dom'
-import { Table, Pagination, Button, Form } from 'antd';
+import { Table, Pagination, Button, Form, message,InputNumber } from 'antd';
 import useFormInstance from "antd/es/form/hooks/useFormInstance";
-
-
-
-const onChange = (pagination, filters, sorter, extra) => {
-  console.log('params', pagination, filters, sorter, extra);
-};
 
 export default () => {
   const GENDERS = ["男", "女"]
   const { limit, offset } = usePagination();
   const [data, setData] = useState([])
   const navigate = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
 
   // const formRef = useRef<useFormInstance>();
   // const values = await form.validateFields()
@@ -91,14 +86,24 @@ export default () => {
         { ...data },
         data.key = data.id));
       setData(data);
+      
       console.log(data, data[1].key);
     })
   }, [limit, offset])
 
   return (
     <div >
+      
+      {contextHolder}
 
       <Button type="primary" onClick={() => navigate(`/SCORE/insert`)}>新建学生分数信息</Button>
+      请输入需要查找的学生ID
+      <InputNumber onChange={e => setId(e)}/>
+      <Button type="primary" onClick={() => {
+        if (!id) message.warning('请输入学生姓名', 2.5);
+        else navigate(`/student/detail/${id}`)
+      }}>查询</Button>
+
       <Form component={false}>
         <Table columns={columns} dataSource={data}
           pagination={{
