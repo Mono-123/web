@@ -3,6 +3,7 @@ import { useParams, useSearchParams, Link  } from 'react-router-dom'
 import Detail from './components/detail'
 import StudentAPI from '../../service/student'
 import './edit/style.css'
+import { Image } from 'antd';
 
 export default () => {
     const params = useParams()
@@ -41,6 +42,10 @@ export default () => {
             <p>
                 <Link to='/student'>返回列表</Link>
             </p>
+            <Image
+                width={200}
+                src={'/uploadFile/'+data.img}
+            />
             <p>
                 请选择要查看的学生信息：
                 <select value={query.tab} onChange={

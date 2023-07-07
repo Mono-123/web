@@ -9,7 +9,6 @@ import { Table, Button, Input, message, Select, Form, Radio, InputNumber } from 
 export default () => {
   const { order, limit, offset } = usePagination();
   const [data, setData] = useState([])
-  const [formData, setFormData] = useState([])
   const [condition, setCondition] = useState()
   const [query, setQuery] = useState()
 
@@ -80,7 +79,6 @@ export default () => {
           data.grade = GRADES[data.grade];
           data.gender = GENDERS[data.gender];
         })
-        setFormData(data)
       })
   }, [limit, offset, order])
 
@@ -95,7 +93,6 @@ export default () => {
           data.grade = GRADES[data.grade];
           data.gender = GENDERS[data.gender];
         })
-        setFormData(data)
       })
       .catch(() => message.info('未找到相关学生信息'))
   }
@@ -111,7 +108,6 @@ export default () => {
           data.grade = GRADES[data.grade];
           data.gender = GENDERS[data.gender];
         })
-        setFormData(data)
       })
       .catch(() => message.info('未找到相关学生信息'))
   }
@@ -148,14 +144,14 @@ export default () => {
       <div><p>请输入查找的具体内容
         <Input style={{ width: '25%' }} onChange={e => setQuery(e.target.value)} />
         <Button type="primary" onClick={() => {
-          console.log(condition, query,typeof(query),query !== '0',(condition === 'gender') && (query !== '0'|| query !== '1'));
+          console.log(condition, query, typeof (query), query !== '0', (condition === 'gender') && (query !== '0' || query !== '1'));
           if (!condition) message.warning('请选择需要查询的项目', 2.5);
           else if (!query) message.warning('请输入需要查询的具体内容', 2.5);
-          else if (condition === 'gender' && query !== '0'&&query !== '1') message.warning('请正确输入性别信息，如果是男生请输入“1”，如果是女生请输入“0”', 2.5);
-          else if
-            (condition === 'grade' && query !== '1' && query !== '2' && query !== '3' && query !== '4' && query !== '5' && query !== '6') {
-            message.warning('请正确输入年级对应的数字,范围是“1-6”', 2.5);
-          }
+          // else if (condition === 'gender' && query !== '0' && query !== '1') message.warning('请正确输入性别信息，如果是男生请输入“1”，如果是女生请输入“0”', 2.5);
+          // else if
+          //   (condition === 'grade' && query !== '1' && query !== '2' && query !== '3' && query !== '4' && query !== '5' && query !== '6') {
+          //   message.warning('请正确输入年级对应的数字,范围是“1-6”', 2.5);
+          // }
           else listCondition(condition, query)
         }}>查询</Button>
       </p>
@@ -177,7 +173,7 @@ export default () => {
         }
         onFinish={
           (values) => {
-            console.log('Success:', name, gender, grade, score);
+            console.log('Success:', values.name, gender, grade, score);
             conditionalQuery(name, gender, grade, score);
           }}
 
@@ -190,7 +186,7 @@ export default () => {
         </Form.Item>
 
         <Form.Item label="性别" name="gender">
-          <Radio.Group   >
+          <Radio.Group >
             <Radio.Button value={1} >男</Radio.Button>
             <Radio.Button value={0} >女</Radio.Button>
           </Radio.Group>
@@ -219,7 +215,7 @@ export default () => {
 
       </Form>
 
-      <Table columns={columns} dataSource={formData}
+      <Table columns={columns} dataSource={data}
         pagination={{
           hideOnSinglePage: true,
           showQuickJumper: true,

@@ -1,7 +1,7 @@
 import { API_SERVER } from ".";
 
 export default {
-    list: (order = 'id', desc = 0, limit = 10, offset = 0) => {
+    list: (order = 'id', desc = 0, limit = 100, offset = 0) => {
         return API_SERVER.get('/student/list', {
             params: {
                 order, desc, limit, offset
@@ -19,6 +19,14 @@ export default {
             params: {
                 name, gender, grade, score
             }
+        })
+    },
+
+    upload: (file) => {
+        const formData= new FormData();
+        formData.append("file",file);
+        return API_SERVER.post(`/student/upload`,formData ,{
+            'Content-type':'multipart/form-data'
         })
     },
 

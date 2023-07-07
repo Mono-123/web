@@ -18,6 +18,9 @@ module.exports = {
               target: 'http://localhost:8080',
               pathRewrite: { '^/api': '' },
             },
+            '/uploadFile': {
+                target: 'http://localhost:8080',
+              },
         },
         port: 3000,
         historyApiFallback: true,   

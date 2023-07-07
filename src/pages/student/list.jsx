@@ -4,7 +4,8 @@ import StudentAPI from '../../service/student'
 import { GENDERS, GRADES } from './components/detail'
 import Pagination from "../../components/pagination";
 import { useNavigate } from 'react-router-dom'
-import { Table, Button, Input, message, Select } from 'antd';
+import { Table, Button, Input, message, Select, Image } from 'antd';
+import Detail from './components/detail'
 
 export default () => {
   const { limit, offset } = usePagination();
@@ -15,6 +16,8 @@ export default () => {
 
   const [order, setOrder] = useState()
   const [desc, setDesc] = useState(0)
+
+  const [last, setLast] = useState()
 
   const columns = [
     {
@@ -55,6 +58,19 @@ export default () => {
       },
     },
     {
+      title: 'img',
+      dataIndex: 'img',
+      render: (text, record) => {
+        console.log(text)
+        if (record.img !== null) {
+          return <Image
+            width={200}
+            src={'/uploadFile/' + record.img}
+          />
+        }
+      }
+    },
+    {
       title: 'Action',
       dataIndex: '',
       key: 'x',
@@ -68,7 +84,7 @@ export default () => {
   ];
 
   useEffect(() => {
-    StudentAPI.list(order,desc, limit, offset)
+    StudentAPI.list(order, desc, limit, offset)
       .then(data => {
         data.map(data => (
           { ...data },
@@ -78,41 +94,22 @@ export default () => {
           data.gender = GENDERS[data.gender];
         })
         setFormData(data)
+        setLast(data[data.length - 1])
       })
-  }, [limit, offset, order,desc])
+  }, [limit, offset, order, desc])
 
   return (
     <div className="student-table">
 
+      {/* <p>last:{last}</p> */}
+
+      <Detail {...last} />
+
       {contextHolder}
       <Button onClick={() => navigate(`/student/insert`)}>新建学生信息</Button>
-      
+
       <Button onClick={() => navigate(`/student/query`)}>查询学生信息</Button>
       <br />
-
-      <Button onClick={() => {
-       if (desc === 0&&order==='id') setDesc(1)
-       else if(desc===1||order==='id') setDesc(0)
-       setOrder('id'); 
-       }}>按ID排序</Button>
-
-      <Button onClick={() => {
-        if (desc === 0&&order==='gender') setDesc(1)
-        else if(desc===1||order==='gender') setDesc(0)
-        setOrder('gender'); 
-        }}>按性别排序</Button>
-
-         <Button onClick={() => {
-        if (desc === 0&&order==='grade') setDesc(1)
-        else if(desc===1||order==='grade') setDesc(0)
-        setOrder('grade'); 
-        }}>按年级排序</Button>
-
-        <Button onClick={() => {
-       if (desc === 0&&order==='score') setDesc(1)
-       else if(desc===1||order==='score') setDesc(0)
-       setOrder('score'); 
-       }}>按分数排序</Button>
 
       <Table columns={columns} dataSource={formData}
         pagination={{

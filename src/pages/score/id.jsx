@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams, useSearchParams , Link} from 'react-router-dom'
+import { useParams, useSearchParams, Link } from 'react-router-dom'
 import Detail from './components/detail'
 import ScoreAPI from '../../service/score'
 import './edit/style.css'
@@ -40,6 +40,11 @@ export default () => {
             <p>
                 <Link to='/score'>返回列表</Link>
             </p>
+
+            <Image
+                width={200}
+                src={'/student/uploadFile'+data.img}
+            />
             <p>
                 请选择要查看的信息：
                 <select value={query.tab} onChange={
