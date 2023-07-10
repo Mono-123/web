@@ -17,7 +17,13 @@ export default () => {
   const [order, setOrder] = useState()
   const [desc, setDesc] = useState(0)
 
-  const [last, setLast] = useState()
+  const [loading, setLoading] = useState(false);
+  const [tableParams, setTableParams] = useState({
+    pagination: {
+      current: 1,
+      pageSize: 10,
+    },
+  });
 
   const onChange = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
@@ -27,11 +33,12 @@ export default () => {
     {
       title: 'id',
       dataIndex: 'id',
-      sorter: {
-        compare: (a, b) => a.id - b.id,
-        multiple: 4,
-        render: (value) => { data.id = value }
-      },
+      sorter: true,
+      // sorter: {
+      //   compare: (a, b) => a.id - b.id,
+      //   multiple: 4,
+      // },
+      // render: (value) => { data.id = value }
     },
     {
       title: 'Name',
@@ -40,32 +47,45 @@ export default () => {
     {
       title: 'Gender',
       dataIndex: 'gender',
-      sorter: {
-        compare: (a, b) => a.gender - b.gender,
-        multiple: 3,
-      },
+      filters: [
+        {
+          text: '男',
+          value: '1',
+        },
+        {
+          text: '女',
+          value: '0',
+        },
+      ],
+
+      // sorter: {
+      //   compare: (a, b) => a.gender - b.gender,
+      //   multiple: 3,
+      // },
     },
     {
       title: 'Grade',
       dataIndex: 'grade',
-      sorter: {
-        compare: (a, b) => a.grade - b.grade,
-        multiple: 2,
-      },
+      sorter: true,
+      // sorter: {
+      //   compare: (a, b) => a.grade - b.grade,
+      //   multiple: 2,
+      // },
     },
     {
       title: 'Score',
       dataIndex: 'score',
-      sorter: {
-        compare: (a, b) => a.score - b.score,
-        multiple: 1,
-      },
+      sorter: true,
+      // sorter: {
+      //   compare: (a, b) => a.score - b.score,
+      //   multiple: 1,
+      // },
     },
     {
       title: 'img',
       dataIndex: 'img',
       render: (text, record) => {
-        console.log(text)
+        // console.log(text)
         if (record.img !== null) {
           return <Image
             width={200}
@@ -90,20 +110,49 @@ export default () => {
   useEffect(() => {
     StudentAPI.list(order, desc, limit, offset)
       .then(data => {
-        let record=data.list
-        console.log('record:',record)
+        let record = data.list
+        console.log('record:', record)
         record.map(record => (
           { ...record },
           record.key = record.id));
-          setData(record);
-          record.map(record => {
+        setData(record);
+        record.map(record => {
           record.grade = GRADES[record.grade];
           record.gender = GENDERS[record.gender];
         }
         )
         setFormData(record)
+
+        setLoading(false);
+        setTableParams({
+          ...tableParams,
+          pagination: {
+            ...tableParams.pagination,
+            total: 200,
+            // 200 is mock data, you should read it from server
+            // total: data.totalCount,
+          },
+        });
+
       })
-  }, [limit, offset, order, desc])
+  }, [JSON.stringify(tableParams),order, desc, limit, offset])
+
+
+  const handleTableChange = (pagination, filters, sorter) => {
+    console.log('pagination:',pagination,'filters:',filters,'sorter:',sorter)
+    setTableParams({
+      pagination,
+      filters,
+      ...sorter,
+    });
+    if(sorter.order==="descend")setDesc(1)
+    if(sorter.order==="ascend")setDesc(0)
+    setOrder(sorter.field)
+    // `dataSource` is useless since `pageSize` changed
+    if (pagination.pageSize !== tableParams.pagination?.pageSize) {
+      setData([]);
+    }
+  };
 
   return (
     <div className="student-table">
@@ -120,17 +169,19 @@ export default () => {
 
       <Table columns={columns}
         dataSource={formData}
-        onchange={(pagination, filters, sorter, extra) => {
-          console.log('params', pagination, filters, sorter, extra);
-        }}
-        pagination={{
-          hideOnSinglePage: true,
-          showQuickJumper: true,
-          defaultCurrent: 1,
-          total: 100,
-          showSizeChanger: true,
-          pageSizeOptions: ["5", "10"],
-        }} />
+        // onchange={onChange}
+        // pagination={{
+        //   hideOnSinglePage: true,
+        //   showQuickJumper: true,
+        //   defaultCurrent: 1,
+        //   total: 100,
+        //   showSizeChanger: true,
+        //   pageSizeOptions: ["5", "10"],
+        // }} 
+        pagination={tableParams.pagination}
+        loading={loading}
+        onChange={handleTableChange}
+      />
 
       {/* <Pagination /> */}
 
