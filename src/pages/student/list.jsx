@@ -86,13 +86,19 @@ export default () => {
       title: 'img',
       dataIndex: 'img',
       render: (text, record) => {
-        // console.log(text)
-        if (record.img !== null) {
+        console.log('img:',record.img.length,typeof(record.img),'if:',record.img !== null)
+        if (record.img.length !== 0) {
           return <Image
-            width={200}
+            width={100}
             src={'/uploadFile/' + record.img}
           />
         }
+        // if (record.img !== null) {
+        //   return <Image
+        //     width={200}
+        //     src={'/uploadFile/' + record.img}
+        //   />
+        // }
       }
     },
     {
