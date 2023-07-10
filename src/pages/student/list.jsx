@@ -19,6 +19,10 @@ export default () => {
 
   const [last, setLast] = useState()
 
+  const onChange = (pagination, filters, sorter, extra) => {
+    console.log('params', pagination, filters, sorter, extra);
+  };
+
   const columns = [
     {
       title: 'id',
@@ -86,15 +90,18 @@ export default () => {
   useEffect(() => {
     StudentAPI.list(order, desc, limit, offset)
       .then(data => {
-        data.map(data => (
-          { ...data },
-          data.key = data.id));
-        setData(data); data.map(data => {
-          data.grade = GRADES[data.grade];
-          data.gender = GENDERS[data.gender];
-        })
-        setFormData(data)
-        setLast(data[data.length - 1])
+        let record=data.list
+        console.log('record:',record)
+        record.map(record => (
+          { ...record },
+          record.key = record.id));
+          setData(record);
+          record.map(record => {
+          record.grade = GRADES[record.grade];
+          record.gender = GENDERS[record.gender];
+        }
+        )
+        setFormData(record)
       })
   }, [limit, offset, order, desc])
 
@@ -103,7 +110,7 @@ export default () => {
 
       {/* <p>last:{last}</p> */}
 
-      <Detail {...last} />
+      {/* <Detail {...last} /> */}
 
       {contextHolder}
       <Button onClick={() => navigate(`/student/insert`)}>新建学生信息</Button>
@@ -111,7 +118,11 @@ export default () => {
       <Button onClick={() => navigate(`/student/query`)}>查询学生信息</Button>
       <br />
 
-      <Table columns={columns} dataSource={formData}
+      <Table columns={columns}
+        dataSource={formData}
+        onchange={(pagination, filters, sorter, extra) => {
+          console.log('params', pagination, filters, sorter, extra);
+        }}
         pagination={{
           hideOnSinglePage: true,
           showQuickJumper: true,
