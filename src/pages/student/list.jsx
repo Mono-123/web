@@ -14,6 +14,7 @@ export default () => {
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
 
+  const [gender, setGender] = useState(undefined)
   const [order, setOrder] = useState()
   const [desc, setDesc] = useState(0)
 
@@ -108,9 +109,9 @@ export default () => {
   ];
 
   useEffect(() => {
-    StudentAPI.list(order, desc, limit, offset)
+    StudentAPI.list(gender,order, desc, limit, offset)
       .then(data => {
-        let record = data.list
+        let record = data[0]
         console.log('record:', record)
         record.map(record => (
           { ...record },
@@ -128,14 +129,14 @@ export default () => {
           ...tableParams,
           pagination: {
             ...tableParams.pagination,
-            total: 200,
+            total: data[1],
             // 200 is mock data, you should read it from server
             // total: data.totalCount,
           },
         });
 
       })
-  }, [JSON.stringify(tableParams),order, desc, limit, offset])
+  }, [JSON.stringify(tableParams),gender,order, desc, limit, offset])
 
 
   const handleTableChange = (pagination, filters, sorter) => {
@@ -147,6 +148,12 @@ export default () => {
     });
     if(sorter.order==="descend")setDesc(1)
     if(sorter.order==="ascend")setDesc(0)
+    
+    if(filters.gender!==null){
+    if(filters.gender.length===2)setGender(undefined)
+    else if(filters.gender[0]==='1')setGender(1)
+    else setGender(0)}
+
     setOrder(sorter.field)
     // `dataSource` is useless since `pageSize` changed
     if (pagination.pageSize !== tableParams.pagination?.pageSize) {
